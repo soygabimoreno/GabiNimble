@@ -1,10 +1,23 @@
 <resources>
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+
+    <style name="AppTheme" parent="@style/Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/red_alternative</item>
+        <item name="colorAccent">@color/secondary</item>
+        <item name="android:statusBarColor">@color/gray_light_3</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="colorControlHighlight">@color/gray_light_2</item>
+        <item name="android:colorEdgeEffect">@color/gray_light_1</item>
+        <item name="android:textColor">@color/accent</item>
     </style>
 
+    <style name="AppTheme.Splash">
+        <item name="android:statusBarColor">@color/primary</item>
+        <item name="android:windowBackground">@drawable/splash_drawable</item>
+    </style>
+
+    <style name="ImageButton">
+        <item name="android:background">@drawable/bg_oval_accent_ripple</item>
+        <item name="android:padding">@dimen/space_xs</item>
+    </style>
 </resources>

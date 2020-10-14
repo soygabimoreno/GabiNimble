@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">GabiNimble</string>
+    <string name="app_name">Gabi Nimble</string>
+    <string name="api_key">1234</string>
+    <string name="listen">Listen</string>
+    <string name="listen_session">Listen session</string>
+    <string name="sessions">Sessions</string>
+    <string name="by_">By </string>
+    <string name="search_not_available">😊 Search is not available yet 😊</string>
+    <string name="share_song_text">Did you listen this session? It\`s awesome! 😊\n%s\n%s</string>
 </resources>

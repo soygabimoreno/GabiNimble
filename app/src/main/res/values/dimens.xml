@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="space_l">32dp</dimen>
+    <dimen name="space_m">24dp</dimen>
+    <dimen name="space_s">12dp</dimen>
+    <dimen name="space_sm">16dp</dimen>
+    <dimen name="space_xl">48dp</dimen>
+    <dimen name="space_xs">8dp</dimen>
+    <dimen name="space_xxl">64dp</dimen>
+    <dimen name="space_xxs">4dp</dimen>
+    <dimen name="space_xxxl">128dp</dimen>
+    <dimen name="space_xxxs">2dp</dimen>
+    <dimen name="space_xxxxl">170dp</dimen>
+
+    <dimen name="radius_card">5dp</dimen>
+</resources>

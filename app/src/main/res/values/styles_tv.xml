@@ -1,0 +1,82 @@
+<resources>
+
+    <style name="Tv" parent="@style/Widget.AppCompat.TextView"/>
+
+    <style name="Tv.Medium">
+        <item name="android:fontFamily">@font/rubik_medium</item>
+    </style>
+
+    <style name="Tv.Medium.Black">
+        <item name="android:textColor">@color/black_light</item>
+    </style>
+
+    <style name="Tv.Medium.Black.XXL">
+        <item name="android:textSize">26sp</item>
+        <item name="android:lineSpacingExtra">1sp</item>
+    </style>
+
+    <style name="Tv.Medium.Black.XL">
+        <item name="android:textSize">21sp</item>
+        <item name="android:lineSpacingExtra">3sp</item>
+    </style>
+
+    <style name="Tv.Medium.Black.L">
+        <item name="android:textSize">17sp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+    </style>
+
+    <style name="Tv.Medium.Black.M">
+        <item name="android:textSize">15sp</item>
+        <item name="android:lineSpacingExtra">3sp</item>
+    </style>
+
+    <style name="Tv.Medium.Gray">
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
+    <style name="Tv.Medium.Gray.L">
+        <item name="android:textSize">17sp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+    </style>
+
+    <style name="Tv.Medium.White">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Tv.Medium.White.L">
+        <item name="android:textSize">17sp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+    </style>
+
+    <style name="Tv.Medium.White.XXS">
+        <item name="android:textSize">11sp</item>
+        <item name="android:lineSpacingExtra">3sp</item>
+    </style>
+
+    <style name="Tv.Regular">
+        <item name="android:fontFamily">@font/rubik_regular</item>
+    </style>
+
+    <style name="Tv.Regular.Black">
+        <item name="android:textColor">@color/black_light</item>
+    </style>
+
+    <style name="Tv.Regular.Black.M">
+        <item name="android:textSize">15sp</item>
+        <item name="android:lineSpacingExtra">3sp</item>
+    </style>
+
+    <style name="Tv.Regular.Black.S">
+        <item name="android:textSize">13sp</item>
+        <item name="android:lineSpacingExtra">5sp</item>
+    </style>
+
+    <style name="Tv.Regular.Gray">
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
+    <style name="Tv.Regular.Gray.S">
+        <item name="android:textSize">13sp</item>
+        <item name="android:lineSpacingExtra">5sp</item>
+    </style>
+</resources>

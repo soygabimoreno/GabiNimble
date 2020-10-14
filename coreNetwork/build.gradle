@@ -1,0 +1,14 @@
+apply from: "$rootDir/common-android-library.gradle"
+
+dependencies {
+    implementation project(ModulesDependency.CORE_DOMAIN)
+    implementation project(ModulesDependency.CORE_INFRASTRUCTURE)
+    implementation project(ModulesDependency.CORE_DATA)
+
+    implementation SquareDependency.RETROFIT
+    implementation SquareDependency.RETROFIT_GSON_CONVERTER
+    implementation SquareDependency.OK_HTTP_LOGGING_INTERCEPTOR
+
+    implementation KoinDependency.KOIN_CORE
+    implementation KoinDependency.KOIN_SCOPE
+}

@@ -1,2 +1,2 @@
-# GabiNimble
-Gabi Nimble's Music Sessions
+# Gabi Nimble
+Gabi Nimble's Music Sessions.
