@@ -15,9 +15,11 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import soy.gabimoreno.gabinimble.buildFakeSong
+import soy.gabimoreno.gabinimble.buildFakeSongs
 import soy.gabimoreno.gabinimble.coredata.usecase.DeleteAllSongsFromLocalUseCase
 import soy.gabimoreno.gabinimble.coredata.usecase.GetSongsUseCase
-import soy.gabimoreno.gabinimble.coredomain.Song
+import soy.gabimoreno.gabinimble.isEqualTo
 
 @ExperimentalCoroutinesApi
 class MainListViewModelTest {
@@ -119,34 +121,4 @@ class MainListViewModelTest {
         getSongsUseCase = getSongsUseCase,
         deleteAllSongsFromLocalUseCase = deleteAllSongsFromLocalUseCase
     )
-
-    private fun buildFakeSong() = Song(
-        id = 1,
-        artist = "GABI NIMBLE",
-        name = "Awesome Title",
-        description = "1. WAND - Happiness",
-        thumbnailUrl = "https://foo.com",
-        audioUrl = "https://foo.com"
-    )
-
-    private fun buildFakeSongs() = listOf(
-        buildFakeSong().copy(id = 2),
-        buildFakeSong().copy(id = 3),
-        buildFakeSong().copy(id = 4),
-        buildFakeSong().copy(id = 5),
-        buildFakeSong().copy(id = 6),
-        buildFakeSong().copy(id = 7),
-    )
-
-    private fun List<Song>.isEqualTo(songs: List<Song>): Boolean {
-        if (size != songs.size) {
-            return false
-        }
-        forEachIndexed { index, value ->
-            if (songs[index] != value) {
-                return false
-            }
-        }
-        return true
-    }
 }
