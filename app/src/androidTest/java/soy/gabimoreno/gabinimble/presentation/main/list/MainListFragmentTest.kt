@@ -57,21 +57,21 @@ class MainListFragmentTest : KoinTest {
     }
 
     @Test
-    fun when_user_clicks_one_item_of_the_bottom_carousel_then_detail_screen_shows_the_right_course() {
+    fun when_user_clicks_one_item_of_the_bottom_carousel_then_detail_screen_shows_the_right_song() {
         clickListItem(R.id.rvSongsBottom, 0)
 
         assertDisplayed(R.id.tvName, "2004")
     }
 
     @Test
-    fun when_user_clicks_the_view_course_button_then_detail_screen_shows_the_right_course() {
+    fun when_user_clicks_the_listen_song_button_then_detail_screen_shows_the_right_song() {
         clickOn(R.id.btnListenSong)
 
         assertDisplayed(R.id.tvName, "2004")
     }
 
     @Test
-    fun when_user_clicks_one_item_of_the_top_carousel_then_detail_screen_shows_the_right_course() {
+    fun when_user_clicks_one_item_of_the_top_carousel_then_detail_screen_shows_the_right_song() {
         clickOn(R.id.vpSongsTop)
 
         assertDisplayed(R.id.tvName, "2004")

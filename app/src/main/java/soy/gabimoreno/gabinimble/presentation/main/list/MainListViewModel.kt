@@ -21,8 +21,8 @@ class MainListViewModel(
     private fun handleLoadContent() {
         updateViewState(ViewState.Loading)
         viewModelScope.launch {
-            val courses = getSongsUseCase()
-            updateViewState(ViewState.Content(courses))
+            val songs = getSongsUseCase()
+            updateViewState(ViewState.Content(songs))
         }
     }
 
@@ -54,7 +54,7 @@ class MainListViewModel(
     sealed class ViewState {
         object Loading : ViewState()
         object Error : ViewState()
-        data class Content(val courses: List<Song>) : ViewState()
+        data class Content(val songs: List<Song>) : ViewState()
     }
 
     sealed class ViewEvents {

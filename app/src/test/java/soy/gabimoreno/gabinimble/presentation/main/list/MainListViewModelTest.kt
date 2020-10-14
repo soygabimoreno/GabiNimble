@@ -61,7 +61,7 @@ class MainListViewModelTest {
 
         val state = viewModel.viewState.value!!
         assertTrue(state is MainListViewModel.ViewState.Content)
-        assertTrue(buildFakeSongs().isEqualTo((state as MainListViewModel.ViewState.Content).courses))
+        assertTrue(buildFakeSongs().isEqualTo((state as MainListViewModel.ViewState.Content).songs))
     }
 
     @Test

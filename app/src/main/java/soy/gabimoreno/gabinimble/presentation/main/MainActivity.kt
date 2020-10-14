@@ -47,7 +47,7 @@ class MainActivity : StatelessBaseActivity<
         navigateTo(
             R.id.flContainer,
             MainListFragment.newInstance(
-                ::navigateToCourseDetail
+                ::navigateToMainDetail
             ).apply {
                 enterTransition = Slide(Gravity.END)
                 exitTransition = Slide(Gravity.START)
@@ -55,7 +55,7 @@ class MainActivity : StatelessBaseActivity<
         )
     }
 
-    private fun navigateToCourseDetail(song: Song) {
+    private fun navigateToMainDetail(song: Song) {
         val songId = song.id
         navigateAddingToBackStackTo(
             R.id.flContainer,

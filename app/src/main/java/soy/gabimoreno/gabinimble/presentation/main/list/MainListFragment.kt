@@ -47,8 +47,8 @@ class MainListFragment : BaseFragment<
             compareItemsByContent { oldItem, newItem -> oldItem == newItem }
 
             viewHolderCreation { view, _ ->
-                SongsTopViewHolder(view) { course ->
-                    viewModel.handleSongClicked(course)
+                SongsTopViewHolder(view) { song ->
+                    viewModel.handleSongClicked(song)
                 }
             }
         }
@@ -62,8 +62,8 @@ class MainListFragment : BaseFragment<
             compareItemsByContent { oldItem, newItem -> oldItem == newItem }
 
             viewHolderCreation { view, _ ->
-                SongsBottomViewHolder(view) { course ->
-                    viewModel.handleSongClicked(course)
+                SongsBottomViewHolder(view) { song ->
+                    viewModel.handleSongClicked(song)
                 }
             }
         }
@@ -135,17 +135,17 @@ class MainListFragment : BaseFragment<
         when (viewState) {
             MainListViewModel.ViewState.Loading -> showLoading()
             MainListViewModel.ViewState.Error -> showError()
-            is MainListViewModel.ViewState.Content -> showContent(viewState.courses)
+            is MainListViewModel.ViewState.Content -> showContent(viewState.songs)
         }.exhaustive
     }
 
-    private fun showContent(courses: List<Song>) {
+    private fun showContent(songs: List<Song>) {
         hideLoading()
-        val purchasedMain = courses.subList(0, 4)
+        val purchasedMain = songs.subList(0, 4)
         songsTopListAdapter.submitList(purchasedMain)
         wdIndicator.setViewPager2(vpSongsTop)
 
-        val popularMain = courses.subList(4, courses.size)
+        val popularMain = songs.subList(4, songs.size)
         songsBottomListAdapter.submitList(popularMain)
         rvSongsBottom.scrollToPosition(0)
     }
