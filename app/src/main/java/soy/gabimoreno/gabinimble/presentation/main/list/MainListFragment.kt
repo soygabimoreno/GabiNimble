@@ -83,8 +83,8 @@ class MainListFragment : BaseFragment<
     }
 
     private fun initFabs() {
-        fabGabiNimble.setOnClickListener {
-            viewModel.handleFabGabiNimbleClicked()
+        fabWeb.setOnClickListener {
+            viewModel.handleFabWebClicked()
         }
         fabSearch.setOnClickListener {
             viewModel.handleFabSearchClicked()
@@ -167,7 +167,7 @@ class MainListFragment : BaseFragment<
         when (viewEvent) {
             is MainListViewModel.ViewEvents.NavigateToWeb -> navigateToWeb(viewEvent.uriString)
             MainListViewModel.ViewEvents.SearchClicked -> toast(R.string.search_not_available)
-            is MainListViewModel.ViewEvents.NavigateToMainDetail -> navigateToSongDetail(viewEvent.course)
+            is MainListViewModel.ViewEvents.NavigateToMainDetail -> navigateToSongDetail(viewEvent.song)
         }.exhaustive
     }
 

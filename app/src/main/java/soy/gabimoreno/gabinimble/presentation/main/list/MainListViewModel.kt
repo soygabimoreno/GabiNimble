@@ -33,7 +33,7 @@ class MainListViewModel(
         }
     }
 
-    fun handleFabGabiNimbleClicked() {
+    fun handleFabWebClicked() {
         viewModelScope.launch {
             sendViewEvent(ViewEvents.NavigateToWeb("http://gabinimble.com"))
         }
@@ -60,6 +60,6 @@ class MainListViewModel(
     sealed class ViewEvents {
         data class NavigateToWeb(val uriString: String) : ViewEvents()
         object SearchClicked : ViewEvents()
-        data class NavigateToMainDetail(val course: Song) : ViewEvents()
+        data class NavigateToMainDetail(val song: Song) : ViewEvents()
     }
 }
