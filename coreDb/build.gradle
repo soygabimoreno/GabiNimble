@@ -11,6 +11,5 @@ dependencies {
 
     implementation GoogleDependency.GSON
 
-    implementation KoinDependency.KOIN_CORE
     implementation KoinDependency.KOIN_SCOPE
 }

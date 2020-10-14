@@ -9,6 +9,5 @@ dependencies {
     implementation SquareDependency.RETROFIT_GSON_CONVERTER
     implementation SquareDependency.OK_HTTP_LOGGING_INTERCEPTOR
 
-    implementation KoinDependency.KOIN_CORE
     implementation KoinDependency.KOIN_SCOPE
 }

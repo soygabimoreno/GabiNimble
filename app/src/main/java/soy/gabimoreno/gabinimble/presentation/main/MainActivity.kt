@@ -9,7 +9,9 @@ import soy.gabimoreno.gabinimble.R
 import soy.gabimoreno.gabinimble.coredomain.Song
 import soy.gabimoreno.gabinimble.libbase.activity.StatelessBaseActivity
 import soy.gabimoreno.gabinimble.libframework.extension.exhaustive
+import soy.gabimoreno.gabinimble.libframework.extension.navigateAddingToBackStackTo
 import soy.gabimoreno.gabinimble.libframework.extension.navigateTo
+import soy.gabimoreno.gabinimble.presentation.main.detail.MainDetailFragment
 import soy.gabimoreno.gabinimble.presentation.main.list.MainListFragment
 
 class MainActivity : StatelessBaseActivity<
@@ -55,12 +57,12 @@ class MainActivity : StatelessBaseActivity<
 
     private fun navigateToCourseDetail(song: Song) {
         val songId = song.id
-//        navigateAddingToBackStackTo(
-//            R.id.flContainer,
-//            MainDetailFragment.newInstance(songId).apply {
-//                enterTransition = Slide(Gravity.END)
-//                exitTransition = Slide(Gravity.START)
-//            }
-//        )
+        navigateAddingToBackStackTo(
+            R.id.flContainer,
+            MainDetailFragment.newInstance(songId).apply {
+                enterTransition = Slide(Gravity.END)
+                exitTransition = Slide(Gravity.START)
+            }
+        )
     }
 }

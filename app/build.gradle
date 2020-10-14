@@ -93,7 +93,6 @@ dependencies {
     implementation GoogleDependency.MATERIAL
     implementation GoogleDependency.EXO_PLAYER
 
-    implementation KoinDependency.KOIN_CORE
     implementation KoinDependency.KOIN_SCOPE
     implementation KoinDependency.KOIN_VIEW_MODEL
 

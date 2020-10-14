@@ -4,6 +4,6 @@ dependencies {
     implementation project(ModulesDependency.CORE_DOMAIN)
     implementation project(ModulesDependency.CORE_INFRASTRUCTURE)
 
+//    implementation KoinDependency.KOIN_SCOPE
     implementation KoinDependency.KOIN_CORE
-    implementation KoinDependency.KOIN_SCOPE
 }
