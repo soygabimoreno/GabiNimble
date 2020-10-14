@@ -71,7 +71,7 @@
         app:layout_constraintBottom_toTopOf="@+id/btnListenSong"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:text="GABI NIMBLE - 1998"/>
+        tools:text="1998"/>
 
     <Button
         android:id="@+id/btnListenSong"
