@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#f02d00</color>
-    <color name="primaryDark">#ff5031</color>
-    <color name="primaryDark_darkened_2">#802818</color>
-    <color name="primaryDark_darkened_4">#33100A</color>
-    <color name="accent">#1877f2</color>
-    <color name="secondary">#00d6e4</color>
+    <color name="primary">#5176A6</color>
+    <color name="primaryDark">#25364d</color>
+    <color name="accent">#F26389</color>
+    <color name="secondary">#069DBF</color>
     <color name="background">@null</color>
-    <color name="red_alternative">#ff5031</color>
     <color name="gray">#989898</color>
     <color name="gray_light_1">#eeeeee</color>
     <color name="gray_light_2">#f6f6f6</color>
@@ -16,17 +13,21 @@
     <color name="white_alpha_10">#1aFFFFFF</color>
     <color name="black">#000000</color>
     <color name="black_light">#1e1e1e</color>
-    <color name="background_tag_beginner">#F5A623</color>
-    <color name="background_tag_medium">#0091FF</color>
-    <color name="background_tag_advanced">#E02020</color>
 
-    <color name="primary_alpha_90">#e6f02d00</color>
-    <color name="primary_alpha_80">#ccf02d00</color>
-    <color name="primary_alpha_70">#b3f02d00</color>
-    <color name="primary_alpha_60">#99f02d00</color>
-    <color name="primary_alpha_50">#80f02d00</color>
-    <color name="primary_alpha_40">#66f02d00</color>
-    <color name="primary_alpha_30">#4df02d00</color>
-    <color name="primary_alpha_20">#33f02d00</color>
-    <color name="primary_alpha_10">#1af02d00</color>
+    <color name="pink">#F26389</color>
+    <color name="purple">#5176A6</color>
+    <color name="purple_dark">#25364d</color>
+    <color name="aqua">#069DBF</color>
+    <color name="green">#99BF60</color>
+    <color name="red">#F2594B</color>
+
+    <color name="primary_alpha_90">#e65176A6</color>
+    <color name="primary_alpha_80">#cc5176A6</color>
+    <color name="primary_alpha_70">#b35176A6</color>
+    <color name="primary_alpha_60">#995176A6</color>
+    <color name="primary_alpha_50">#805176A6</color>
+    <color name="primary_alpha_40">#665176A6</color>
+    <color name="primary_alpha_30">#4d5176A6</color>
+    <color name="primary_alpha_20">#335176A6</color>
+    <color name="primary_alpha_10">#1a5176A6</color>
 </resources>

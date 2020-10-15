@@ -24,28 +24,41 @@
         android:id="@+id/fabWeb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/space_sm"
+        android:layout_marginEnd="@dimen/space_sm"
         android:layout_marginTop="@dimen/space_sm"
         android:backgroundTint="@color/primary"
         android:src="@drawable/ic_logo"
         app:fabSize="mini"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:maxImageSize="40dp"
-        app:tint="@color/gray_light_3"/>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_sm"
-        android:layout_marginEnd="@dimen/space_sm"
-        android:backgroundTint="@color/gray_light_3"
-        android:src="@drawable/ic_search"
-        app:fabSize="mini"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/black_light"/>
+        app:maxImageSize="40dp"/>
+
+    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+    <!--        android:id="@+id/fabWeb"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="@dimen/space_sm"-->
+    <!--        android:layout_marginTop="@dimen/space_sm"-->
+    <!--        android:backgroundTint="@color/primary"-->
+    <!--        android:src="@drawable/ic_logo"-->
+    <!--        app:fabSize="mini"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        app:maxImageSize="40dp"-->
+    <!--        app:tint="@color/gray_light_3"/>-->
+
+    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+    <!--        android:id="@+id/fabSearch"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="@dimen/space_sm"-->
+    <!--        android:layout_marginEnd="@dimen/space_sm"-->
+    <!--        android:backgroundTint="@color/gray_light_3"-->
+    <!--        android:src="@drawable/ic_search"-->
+    <!--        app:fabSize="mini"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        app:tint="@color/black_light"/>-->
 
     <View
         android:layout_width="0dp"
@@ -79,7 +92,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/space_xs"
-        android:backgroundTint="@color/gray_light_2"
+        android:backgroundTint="@color/white"
         android:paddingStart="@dimen/space_l"
         android:paddingEnd="@dimen/space_l"
         android:text="@string/listen"

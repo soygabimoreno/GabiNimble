@@ -46,7 +46,7 @@
 
         <TextView
             android:id="@+id/tvArtist"
-            style="@style/Tv.Regular.Gray.S"
+            style="@style/Tv.Regular.BlackLight.S"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_xxs"

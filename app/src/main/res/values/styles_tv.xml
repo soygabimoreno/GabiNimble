@@ -7,7 +7,7 @@
     </style>
 
     <style name="Tv.Medium.Black">
-        <item name="android:textColor">@color/black_light</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="Tv.Medium.Black.XXL">
@@ -30,11 +30,11 @@
         <item name="android:lineSpacingExtra">3sp</item>
     </style>
 
-    <style name="Tv.Medium.Gray">
-        <item name="android:textColor">@color/gray</item>
+    <style name="Tv.Medium.BlackLight">
+        <item name="android:textColor">@color/black_light</item>
     </style>
 
-    <style name="Tv.Medium.Gray.L">
+    <style name="Tv.Medium.BlackLight.L">
         <item name="android:textSize">17sp</item>
         <item name="android:lineSpacingExtra">4sp</item>
     </style>
@@ -58,7 +58,7 @@
     </style>
 
     <style name="Tv.Regular.Black">
-        <item name="android:textColor">@color/black_light</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="Tv.Regular.Black.M">
@@ -71,11 +71,17 @@
         <item name="android:lineSpacingExtra">5sp</item>
     </style>
 
-    <style name="Tv.Regular.Gray">
-        <item name="android:textColor">@color/gray</item>
+    <style name="Tv.Regular.BlackLight">
+        <item name="android:textColor">@color/black_light</item>
     </style>
 
-    <style name="Tv.Regular.Gray.S">
+    <style name="Tv.Regular.BlackLight.M">
+        <item name="android:textSize">15sp</item>
+        <item name="android:lineSpacingExtra">3sp</item>
+        <item name="android:lineHeight">24sp</item>
+    </style>
+
+    <style name="Tv.Regular.BlackLight.S">
         <item name="android:textSize">13sp</item>
         <item name="android:lineSpacingExtra">5sp</item>
     </style>

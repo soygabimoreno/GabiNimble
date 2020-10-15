@@ -86,9 +86,9 @@ class MainListFragment : BaseFragment<
         fabWeb.setOnClickListener {
             viewModel.handleFabWebClicked()
         }
-        fabSearch.setOnClickListener {
-            viewModel.handleFabSearchClicked()
-        }
+//        fabSearch.setOnClickListener {
+//            viewModel.handleFabSearchClicked()
+//        }
     }
 
     private fun initPurchasedMain() {
