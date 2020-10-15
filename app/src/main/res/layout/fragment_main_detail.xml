@@ -44,6 +44,7 @@
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +60,6 @@
                 android:id="@+id/pv"
                 android:layout_width="match_parent"
                 android:layout_height="256dp"
-                android:layout_marginTop="8dp"
                 android:background="@color/black"
                 app:fastforward_increment="@integer/fast_forward_rewind_interval"
                 app:resize_mode="fit"
