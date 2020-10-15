@@ -6,7 +6,6 @@ import androidx.test.rule.ActivityTestRule
 import com.jakewharton.espresso.OkHttp3IdlingResource
 import com.schibsted.spain.barista.assertion.BaristaRecyclerViewAssertions.assertRecyclerViewItemCount
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
-import com.schibsted.spain.barista.interaction.BaristaClickInteractions.clickBack
 import com.schibsted.spain.barista.interaction.BaristaClickInteractions.clickOn
 import com.schibsted.spain.barista.interaction.BaristaListInteractions.clickListItem
 import com.schibsted.spain.barista.interaction.BaristaViewPagerInteractions.swipeViewPagerForward
@@ -46,44 +45,34 @@ class MainListFragmentTest : KoinTest {
 
     @Test
     fun bottom_carousel_has_the_right_number_of_elements() =
-        assertRecyclerViewItemCount(R.id.rvSongsBottom, 6)
+        assertRecyclerViewItemCount(R.id.rvSongsBottom, 19)
 
     @Test
     fun assert_top_carousel_titles_are_shown_properly() {
-        assertDisplayed(R.id.tvNameTop, "2004")
+        assertDisplayed(R.id.tvNameTop, "94 98")
 
         swipeViewPagerForward(R.id.vpSongsTop)
-        assertDisplayed(R.id.tvNameTop, "2004")
+        assertDisplayed(R.id.tvNameTop, "93 95")
     }
 
     @Test
     fun when_user_clicks_one_item_of_the_bottom_carousel_then_detail_screen_shows_the_right_song() {
         clickListItem(R.id.rvSongsBottom, 0)
 
-        assertDisplayed(R.id.tvName, "2004")
+        assertDisplayed(R.id.tvName, "94 99")
     }
 
     @Test
     fun when_user_clicks_the_listen_song_button_then_detail_screen_shows_the_right_song() {
         clickOn(R.id.btnListenSong)
 
-        assertDisplayed(R.id.tvName, "2004")
+        assertDisplayed(R.id.tvName, "94 98")
     }
 
     @Test
     fun when_user_clicks_one_item_of_the_top_carousel_then_detail_screen_shows_the_right_song() {
         clickOn(R.id.vpSongsTop)
 
-        assertDisplayed(R.id.tvName, "2004")
-    }
-
-    @Test
-    fun when_user_click_back_from_the_detail_screen_navigate_to_the_master_one() {
-        clickListItem(R.id.rvSongsBottom, 0)
-
-        assertDisplayed(R.id.tvName, "2004")
-
-        clickBack()
-        assertDisplayed(R.id.tvNameTop)
+        assertDisplayed(R.id.tvName, "94 98")
     }
 }
