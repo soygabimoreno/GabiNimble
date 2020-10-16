@@ -31,6 +31,12 @@ class PlayerService : Service() {
                     putExtra(EXTRA_SONG, song)
                 })
         }
+
+        fun stop(context: Context) {
+            context.stopService(
+                Intent(context, PlayerService::class.java)
+            )
+        }
     }
 
     private var songName: String? = null

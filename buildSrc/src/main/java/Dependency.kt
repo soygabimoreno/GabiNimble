@@ -57,7 +57,7 @@ object ModulesDependency {
 }
 
 object KotlinDependency {
-    val KOTLIN = "org.jetbrains.kotlin:kotlin-stdlib:${Version.KOTLIN}"
+    val KOTLIN = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Version.KOTLIN}"
     val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Version.COROUTINES}"
 }
 
