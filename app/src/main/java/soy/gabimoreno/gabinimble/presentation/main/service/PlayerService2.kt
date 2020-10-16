@@ -11,7 +11,6 @@ import android.os.IBinder
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.exoplayer2.ui.PlayerNotificationManager
 import org.koin.android.ext.android.inject
-import soy.gabimoreno.gabinimble.App
 import soy.gabimoreno.gabinimble.R
 import soy.gabimoreno.gabinimble.coredomain.Song
 import soy.gabimoreno.gabinimble.libimageloader.getBitmapFromUrl
@@ -25,6 +24,7 @@ class PlayerService2 : Service() {
     private var songThumbnail: String? = null
 
     companion object {
+        private const val CHANNEL_ID = "CHANNEL_ID"
         private const val NOTIFICATION_ID = 1
 
         private const val EXTRA_SONG_NAME = "EXTRA_SONG_NAME"
@@ -98,7 +98,7 @@ class PlayerService2 : Service() {
     private fun createNotification() {
         notificationManager = PlayerNotificationManager.createWithNotificationChannel(
             this,
-            App.CHANNEL_ID,
+            CHANNEL_ID,
             R.string.app_name,
             ResourcesCompat.ID_NULL,
             NOTIFICATION_ID,
