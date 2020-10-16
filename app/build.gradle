@@ -10,12 +10,12 @@ android {
     properties.load(project.file('../local.properties').newDataInputStream())
 
     signingConfigs {
-//        release {
-//            storeFile file(properties.getProperty('keystore.storeFile'))
-//            storePassword properties.getProperty('keystore.storePassword')
-//            keyAlias properties.getProperty('keystore.keyAlias')
-//            keyPassword properties.getProperty('keystore.keyPassword')
-//        }
+        release {
+            storeFile file(properties.getProperty('keystore.storeFile'))
+            storePassword properties.getProperty('keystore.storePassword')
+            keyAlias properties.getProperty('keystore.keyAlias')
+            keyPassword properties.getProperty('keystore.keyPassword')
+        }
     }
 
     compileSdkVersion project.ext.compileSdkVersion
