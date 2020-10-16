@@ -19,27 +19,23 @@ import soy.gabimoreno.gabinimble.presentation.main.MainActivity
 
 class PlayerService : Service() {
 
-    private var songTitle: String? = null
-    private var songDescription: String? = null
-    private var songThumbnail: String? = null
-
     companion object {
         private const val CHANNEL_ID = "CHANNEL_ID"
         private const val NOTIFICATION_ID = 1
 
-        private const val EXTRA_SONG_NAME = "EXTRA_SONG_NAME"
-        private const val EXTRA_SONG_DESCRIPTION = "EXTRA_SONG_DESCRIPTION"
-        private const val EXTRA_SONG_THUMBNAIL = "EXTRA_SONG_THUMBNAIL"
+        private const val EXTRA_SONG = "EXTRA_SONG"
 
         fun start(context: Context, song: Song) {
             context.startForegroundService(
                 Intent(context, PlayerService::class.java).apply {
-                    putExtra(EXTRA_SONG_NAME, song.name)
-                    putExtra(EXTRA_SONG_DESCRIPTION, song.description)
-                    putExtra(EXTRA_SONG_THUMBNAIL, song.thumbnailUrl)
+                    putExtra(EXTRA_SONG, song)
                 })
         }
     }
+
+    private var songName: String? = null
+    private var songDescription: String? = null
+    private var songThumbnailUrl: String? = null
 
     private val player: Player by inject()
 
@@ -50,7 +46,7 @@ class PlayerService : Service() {
     private val mediaDescriptionAdapter =
         object : PlayerNotificationManager.MediaDescriptionAdapter {
             override fun getCurrentContentTitle(player: com.google.android.exoplayer2.Player): CharSequence {
-                return songTitle ?: "Default title"
+                return songName ?: "Default title"
             }
 
             override fun getCurrentContentText(player: com.google.android.exoplayer2.Player): CharSequence? {
@@ -61,7 +57,7 @@ class PlayerService : Service() {
                 player: com.google.android.exoplayer2.Player,
                 bitmapCallback: PlayerNotificationManager.BitmapCallback
             ): Bitmap? {
-                songThumbnail.toBitmap(applicationContext) { bitmap ->
+                songThumbnailUrl.toBitmap(applicationContext) { bitmap ->
                     bitmapCallback.onBitmap(bitmap)
                 }
                 return null
@@ -78,9 +74,12 @@ class PlayerService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        songTitle = intent?.getStringExtra(EXTRA_SONG_NAME)
-        songDescription = intent?.getStringExtra(EXTRA_SONG_DESCRIPTION)
-        songThumbnail = intent?.getStringExtra(EXTRA_SONG_THUMBNAIL)
+        val song = intent?.getSerializableExtra(EXTRA_SONG) as? Song
+        song?.let {
+            songName = song.name
+            songDescription = song.description
+            songThumbnailUrl = song.thumbnailUrl
+        }
 
         buildNotification()
 

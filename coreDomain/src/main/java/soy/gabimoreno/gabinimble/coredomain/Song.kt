@@ -1,5 +1,7 @@
 package soy.gabimoreno.gabinimble.coredomain
 
+import java.io.Serializable
+
 data class Song(
     val id: Long,
     val artist: String,
@@ -7,4 +9,4 @@ data class Song(
     val description: String,
     val thumbnailUrl: String,
     val audioUrl: String,
-)
+) : Serializable
