@@ -93,7 +93,7 @@ class MainDetailViewModelTest {
         val pv = mockk<StyledPlayerView>()
         viewModel.initPlayer(pv, buildFakeSong())
 
-        coVerify(exactly = 1) { player.init(any(), any()) }
+        coVerify(exactly = 1) { player.init(any(), any(), any()) }
     }
 
     private fun givenRightSongRetrieved() {
