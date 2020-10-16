@@ -12,7 +12,8 @@ import com.google.android.exoplayer2.ui.StyledPlayerView
 
 class Player(private val context: Context) {
 
-    private var player: SimpleExoPlayer? = null
+    var player: SimpleExoPlayer? = null
+        private set
     private var playing = false
     private lateinit var onStop: () -> Unit
 
