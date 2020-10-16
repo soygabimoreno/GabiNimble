@@ -87,7 +87,8 @@ object GoogleDependency {
     val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics-ktx:${Version.FIREBASE_ANALYTICS}"
     val FIREBASE_CRASHLYTICS = "com.google.firebase:firebase-crashlytics:${Version.FIREBASE_CRASHLYTICS}"
     val MATERIAL = "com.google.android.material:material:${Version.MATERIAL}"
-    val EXO_PLAYER = "com.google.android.exoplayer:exoplayer:${Version.EXO_PLAYER}"
+    val EXO_PLAYER_CORE = "com.google.android.exoplayer:exoplayer-core:${Version.EXO_PLAYER}"
+    val EXO_PLAYER_UI = "com.google.android.exoplayer:exoplayer-ui:${Version.EXO_PLAYER}"
     val GSON = "com.google.code.gson:gson:${Version.GSON}"
 }
 

@@ -1,5 +1,6 @@
 apply from: "$rootDir/common-android-library.gradle"
 
 dependencies {
-    implementation GoogleDependency.EXO_PLAYER
+    implementation GoogleDependency.EXO_PLAYER_CORE
+    implementation GoogleDependency.EXO_PLAYER_UI
 }

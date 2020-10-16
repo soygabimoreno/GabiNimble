@@ -91,7 +91,8 @@ dependencies {
     implementation GoogleDependency.FIREBASE_ANALYTICS
     implementation GoogleDependency.FIREBASE_CRASHLYTICS
     implementation GoogleDependency.MATERIAL
-    implementation GoogleDependency.EXO_PLAYER
+    implementation GoogleDependency.EXO_PLAYER_CORE
+    implementation GoogleDependency.EXO_PLAYER_UI
 
     implementation KoinDependency.KOIN_SCOPE
     implementation KoinDependency.KOIN_VIEW_MODEL
