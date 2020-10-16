@@ -9,7 +9,6 @@ import soy.gabimoreno.gabinimble.coredomain.Song
 import soy.gabimoreno.gabinimble.domain.OffsetToAlphaCalculator
 import soy.gabimoreno.gabinimble.libbase.fragment.BaseFragment
 import soy.gabimoreno.gabinimble.libframework.extension.*
-import soy.gabimoreno.gabinimble.presentation.main.service.PlayerService
 import soy.gabimoreno.gabinimble.presentation.main.service.PlayerService2
 
 class MainDetailFragment : BaseFragment<
@@ -117,7 +116,7 @@ class MainDetailFragment : BaseFragment<
     }
 
     private fun stopPlayer() {
-        val intent = Intent(requireContext(), PlayerService::class.java)
+        val intent = Intent(requireContext(), PlayerService2::class.java)
         requireContext().stopService(intent)
     }
 }
