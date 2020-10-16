@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Tv" parent="@style/Widget.AppCompat.TextView"/>
 
@@ -78,7 +78,7 @@
     <style name="Tv.Regular.BlackLight.M">
         <item name="android:textSize">15sp</item>
         <item name="android:lineSpacingExtra">3sp</item>
-        <item name="android:lineHeight">24sp</item>
+        <item name="android:lineHeight" tools:targetApi="p">24sp</item>
     </style>
 
     <style name="Tv.Regular.BlackLight.S">
