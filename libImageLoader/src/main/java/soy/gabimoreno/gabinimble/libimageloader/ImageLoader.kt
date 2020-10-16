@@ -18,41 +18,44 @@ fun ImageView.load(thumbnailUrl: String) {
         .into(this)
 }
 
-fun getBitmapFromUrl(context: Context, imageUrl: String?, listener: (bitmap: Bitmap) -> Unit) {
-    Glide.with(context)
+fun String?.toBitmap(context: Context, onBitmapReady: (bitmap: Bitmap) -> Unit) {
+    Glide
+        .with(context)
         .asBitmap()
-        .load(imageUrl)
+        .load(this)
         .diskCacheStrategy(DiskCacheStrategy.ALL)
         .getResource {
             if (it != null) {
-                listener.invoke(it)
+                onBitmapReady(it)
             }
         }
         .submit()
 }
 
+fun <TranscodeType> RequestBuilder<TranscodeType>.getResource(
+    listener: (resource: TranscodeType?) -> Unit
+): RequestBuilder<TranscodeType> {
+    return addListener(
+        object : RequestListener<TranscodeType> {
+            override fun onLoadFailed(
+                e: GlideException?,
+                model: Any?,
+                target: Target<TranscodeType>?,
+                isFirstResource: Boolean
+            ): Boolean {
+                listener(null)
+                return false
+            }
 
-fun <TranscodeType> RequestBuilder<TranscodeType>.getResource(listener: (resource: TranscodeType?) -> Unit): RequestBuilder<TranscodeType> {
-    return addListener(object : RequestListener<TranscodeType> {
-        override fun onLoadFailed(
-            e: GlideException?,
-            model: Any?,
-            target: Target<TranscodeType>?,
-            isFirstResource: Boolean
-        ): Boolean {
-            listener(null)
-            return false
-        }
-
-        override fun onResourceReady(
-            resource: TranscodeType?,
-            model: Any?,
-            target: Target<TranscodeType>?,
-            dataSource: DataSource?,
-            isFirstResource: Boolean
-        ): Boolean {
-            listener(resource)
-            return false
-        }
-    })
+            override fun onResourceReady(
+                resource: TranscodeType?,
+                model: Any?,
+                target: Target<TranscodeType>?,
+                dataSource: DataSource?,
+                isFirstResource: Boolean
+            ): Boolean {
+                listener(resource)
+                return false
+            }
+        })
 }

@@ -12,10 +12,11 @@ import com.google.android.exoplayer2.ui.StyledPlayerView
 
 class Player(private val context: Context) {
 
-    var player: SimpleExoPlayer? = null
-        private set
+    private var player: SimpleExoPlayer? = null
     private var playing = false
     private lateinit var onStop: () -> Unit
+
+    fun getExoPlayer(): SimpleExoPlayer? = player
 
     fun init(
         exoplayerView: StyledPlayerView,

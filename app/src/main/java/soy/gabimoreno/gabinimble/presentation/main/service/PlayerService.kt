@@ -13,7 +13,7 @@ import com.google.android.exoplayer2.ui.PlayerNotificationManager
 import org.koin.android.ext.android.inject
 import soy.gabimoreno.gabinimble.R
 import soy.gabimoreno.gabinimble.coredomain.Song
-import soy.gabimoreno.gabinimble.libimageloader.getBitmapFromUrl
+import soy.gabimoreno.gabinimble.libimageloader.toBitmap
 import soy.gabimoreno.gabinimble.libplayer.Player
 import soy.gabimoreno.gabinimble.presentation.main.MainActivity
 
@@ -31,12 +31,13 @@ class PlayerService : Service() {
         private const val EXTRA_SONG_DESCRIPTION = "EXTRA_SONG_DESCRIPTION"
         private const val EXTRA_SONG_THUMBNAIL = "EXTRA_SONG_THUMBNAIL"
 
-        fun getIntent(context: Context, song: Song): Intent {
-            return Intent(context, PlayerService::class.java).apply {
-                putExtra(EXTRA_SONG_NAME, song.name)
-                putExtra(EXTRA_SONG_DESCRIPTION, song.description)
-                putExtra(EXTRA_SONG_THUMBNAIL, song.thumbnailUrl)
-            }
+        fun start(context: Context, song: Song) {
+            context.startForegroundService(
+                Intent(context, PlayerService::class.java).apply {
+                    putExtra(EXTRA_SONG_NAME, song.name)
+                    putExtra(EXTRA_SONG_DESCRIPTION, song.description)
+                    putExtra(EXTRA_SONG_THUMBNAIL, song.thumbnailUrl)
+                })
         }
     }
 
@@ -45,27 +46,6 @@ class PlayerService : Service() {
     private val binder: MediaServiceBinder by lazy { MediaServiceBinder() }
 
     private lateinit var notificationManager: PlayerNotificationManager
-
-    override fun onDestroy() {
-        super.onDestroy()
-        if (this::notificationManager.isInitialized) {
-            notificationManager.setPlayer(null)
-        }
-    }
-
-    override fun onBind(intent: Intent?): IBinder? {
-        return binder
-    }
-
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        songTitle = intent?.getStringExtra(EXTRA_SONG_NAME)
-        songDescription = intent?.getStringExtra(EXTRA_SONG_DESCRIPTION)
-        songThumbnail = intent?.getStringExtra(EXTRA_SONG_THUMBNAIL)
-
-        createNotification()
-
-        return START_STICKY
-    }
 
     private val mediaDescriptionAdapter =
         object : PlayerNotificationManager.MediaDescriptionAdapter {
@@ -79,12 +59,11 @@ class PlayerService : Service() {
 
             override fun getCurrentLargeIcon(
                 player: com.google.android.exoplayer2.Player,
-                callback: PlayerNotificationManager.BitmapCallback
+                bitmapCallback: PlayerNotificationManager.BitmapCallback
             ): Bitmap? {
-                getBitmapFromUrl(applicationContext, songThumbnail) {
-                    callback.onBitmap(it)
+                songThumbnail.toBitmap(applicationContext) { bitmap ->
+                    bitmapCallback.onBitmap(bitmap)
                 }
-
                 return null
             }
 
@@ -92,10 +71,23 @@ class PlayerService : Service() {
                 val intent = Intent(applicationContext, MainActivity::class.java)
                 return PendingIntent.getActivity(applicationContext, 0, intent, 0)
             }
-
         }
 
-    private fun createNotification() {
+    override fun onBind(intent: Intent?): IBinder? {
+        return binder
+    }
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        songTitle = intent?.getStringExtra(EXTRA_SONG_NAME)
+        songDescription = intent?.getStringExtra(EXTRA_SONG_DESCRIPTION)
+        songThumbnail = intent?.getStringExtra(EXTRA_SONG_THUMBNAIL)
+
+        buildNotification()
+
+        return START_STICKY
+    }
+
+    private fun buildNotification() {
         notificationManager = PlayerNotificationManager.createWithNotificationChannel(
             this,
             CHANNEL_ID,
@@ -129,7 +121,14 @@ class PlayerService : Service() {
 
         notificationManager.setSmallIcon(R.drawable.ic_notification)
 
-        notificationManager.setPlayer(player.player)
+        notificationManager.setPlayer(player.getExoPlayer())
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (::notificationManager.isInitialized) {
+            notificationManager.setPlayer(null)
+        }
     }
 
     inner class MediaServiceBinder : Binder() {

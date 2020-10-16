@@ -107,12 +107,7 @@ class MainDetailFragment : BaseFragment<
     }
 
     private fun playPlayer(song: Song) {
-/*        val songName = song.name
-        val intent = Intent(requireContext(), PlayerService::class.java)
-        intent.putExtra(PlayerService.EXTRA_SONG_NAME, songName)*/
-
-        val intent = PlayerService.getIntent(requireContext(), song)
-        requireContext().startForegroundService(intent)
+        PlayerService.start(requireContext(), song)
     }
 
     private fun stopPlayer() {
