@@ -9,6 +9,7 @@ import soy.gabimoreno.gabinimble.coredomain.Song
 import soy.gabimoreno.gabinimble.domain.OffsetToAlphaCalculator
 import soy.gabimoreno.gabinimble.libbase.fragment.BaseFragment
 import soy.gabimoreno.gabinimble.libframework.extension.*
+import soy.gabimoreno.gabinimble.presentation.main.service.PlayerService
 
 class MainDetailFragment : BaseFragment<
         MainDetailViewModel.ViewState,
@@ -37,16 +38,23 @@ class MainDetailFragment : BaseFragment<
 
     override fun onResume() {
         super.onResume()
-        viewModel.handleOnResume()
+//        viewModel.handleOnResume()
+
+        val intent = Intent(requireContext(), PlayerService::class.java)
+        intent.putExtra(PlayerService.EXTRA_TEXT, "AudioClean Text")
+        requireContext().startForegroundService(intent)
     }
 
     override fun onPause() {
-        viewModel.handleOnPause()
+//        viewModel.handleOnPause()
+
+        val intent = Intent(requireContext(), PlayerService::class.java)
+        requireContext().stopService(intent)
         super.onPause()
     }
 
     override fun onDestroy() {
-        viewModel.handleOnDestroy()
+//        viewModel.handleOnDestroy()
         super.onDestroy()
     }
 
