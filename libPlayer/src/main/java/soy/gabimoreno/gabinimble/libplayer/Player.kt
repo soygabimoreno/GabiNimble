@@ -14,11 +14,14 @@ class Player(private val context: Context) {
 
     private var player: SimpleExoPlayer? = null
     private var playing = false
+    private lateinit var onStop: () -> Unit
 
     fun init(
         exoplayerView: StyledPlayerView,
-        uriStrings: List<String>
+        uriStrings: List<String>,
+        onStop: () -> Unit
     ) {
+        this.onStop = onStop
         val trackSelector = DefaultTrackSelector(context)
         player = SimpleExoPlayer.Builder(context)
             .setTrackSelector(trackSelector)
@@ -61,7 +64,9 @@ class Player(private val context: Context) {
         player?.playWhenReady = false
     }
 
-    fun release() {
+    fun stop() {
+        player?.stop()
         player?.release()
+        onStop()
     }
 }

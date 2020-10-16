@@ -21,7 +21,7 @@ class MainDetailFragment : BaseFragment<
         private const val ARG_SONG_ID = "ARG_SONG_ID"
 
         fun newInstance(
-            songId: Long
+            songId: Long,
         ) = MainDetailFragment().withArgs {
             putLong(ARG_SONG_ID, songId)
         }
@@ -38,24 +38,7 @@ class MainDetailFragment : BaseFragment<
 
     override fun onResume() {
         super.onResume()
-//        viewModel.handleOnResume()
-
-        val intent = Intent(requireContext(), PlayerService::class.java)
-        intent.putExtra(PlayerService.EXTRA_TEXT, "AudioClean Text")
-        requireContext().startForegroundService(intent)
-    }
-
-    override fun onPause() {
-//        viewModel.handleOnPause()
-
-        val intent = Intent(requireContext(), PlayerService::class.java)
-        requireContext().stopService(intent)
-        super.onPause()
-    }
-
-    override fun onDestroy() {
-//        viewModel.handleOnDestroy()
-        super.onDestroy()
+        viewModel.handleOnResume()
     }
 
     override fun initUI() {
@@ -105,6 +88,8 @@ class MainDetailFragment : BaseFragment<
         when (viewEvent) {
             MainDetailViewModel.ViewEvents.NavigateToBack -> requireActivity().onBackPressed()
             is MainDetailViewModel.ViewEvents.ShareSong -> shareSong(viewEvent.song)
+            is MainDetailViewModel.ViewEvents.PlayPlayer -> playPlayer(viewEvent.song)
+            MainDetailViewModel.ViewEvents.StopPlayer -> stopPlayer()
         }.exhaustive
     }
 
@@ -119,5 +104,17 @@ class MainDetailFragment : BaseFragment<
             val shareIntent = Intent.createChooser(sendIntent, null)
             startActivity(shareIntent)
         }
+    }
+
+    private fun playPlayer(song: Song) {
+        val songName = song.name
+        val intent = Intent(requireContext(), PlayerService::class.java)
+        intent.putExtra(PlayerService.EXTRA_SONG_NAME, songName)
+        requireContext().startForegroundService(intent)
+    }
+
+    private fun stopPlayer() {
+        val intent = Intent(requireContext(), PlayerService::class.java)
+        requireContext().stopService(intent)
     }
 }

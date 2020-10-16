@@ -55,19 +55,22 @@ class MainDetailViewModel(
         player.init(
             exoplayerView = pv,
             uriStrings = listOf(audioUrl)
-        )
+        ) {
+            handleStopPlayer()
+        }
     }
 
     fun handleOnResume() {
-        player.play()
+        viewModelScope.launch {
+            val song = findSongByIdUseCase(songId)
+            sendViewEvent(ViewEvents.PlayPlayer(song))
+        }
     }
 
-    fun handleOnPause() {
-        player.pause()
-    }
-
-    fun handleOnDestroy() {
-        player.release()
+    fun handleStopPlayer() {
+        viewModelScope.launch {
+            sendViewEvent(ViewEvents.StopPlayer)
+        }
     }
 
     sealed class ViewState {
@@ -79,5 +82,7 @@ class MainDetailViewModel(
     sealed class ViewEvents {
         data class ShareSong(val song: Song) : ViewEvents()
         object NavigateToBack : ViewEvents()
+        data class PlayPlayer(val song: Song) : ViewEvents()
+        object StopPlayer : ViewEvents()
     }
 }

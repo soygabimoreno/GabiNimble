@@ -7,4 +7,7 @@
     <string name="by_">By </string>
     <string name="search_not_available">😊 Search is not available yet 😊</string>
     <string name="share_song_text">Did you listen this session? It\`s awesome! 😊\n%s\n%s</string>
+    <string name="play">Play</string>
+    <string name="pause">Pause</string>
+    <string name="stop">Stop</string>
 </resources>

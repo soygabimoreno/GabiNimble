@@ -25,5 +25,8 @@
         <activity android:name=".presentation.main.MainActivity"/>
 
         <service android:name=".presentation.main.service.PlayerService"/>
+        <service android:name=".presentation.main.service.child.PlayPlayerService"/>
+        <service android:name=".presentation.main.service.child.PausePlayerService"/>
+        <service android:name=".presentation.main.service.child.StopPlayerService"/>
     </application>
 </manifest>
