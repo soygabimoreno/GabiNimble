@@ -17,7 +17,7 @@ import soy.gabimoreno.gabinimble.libimageloader.getBitmapFromUrl
 import soy.gabimoreno.gabinimble.libplayer.Player
 import soy.gabimoreno.gabinimble.presentation.main.MainActivity
 
-class PlayerService2 : Service() {
+class PlayerService : Service() {
 
     private var songTitle: String? = null
     private var songDescription: String? = null
@@ -32,7 +32,7 @@ class PlayerService2 : Service() {
         private const val EXTRA_SONG_THUMBNAIL = "EXTRA_SONG_THUMBNAIL"
 
         fun getIntent(context: Context, song: Song): Intent {
-            return Intent(context, PlayerService2::class.java).apply {
+            return Intent(context, PlayerService::class.java).apply {
                 putExtra(EXTRA_SONG_NAME, song.name)
                 putExtra(EXTRA_SONG_DESCRIPTION, song.description)
                 putExtra(EXTRA_SONG_THUMBNAIL, song.thumbnailUrl)
@@ -133,6 +133,6 @@ class PlayerService2 : Service() {
     }
 
     inner class MediaServiceBinder : Binder() {
-        val service: PlayerService2 get() = this@PlayerService2
+        val service: PlayerService get() = this@PlayerService
     }
 }

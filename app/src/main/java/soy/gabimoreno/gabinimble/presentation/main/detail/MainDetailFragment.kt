@@ -9,7 +9,7 @@ import soy.gabimoreno.gabinimble.coredomain.Song
 import soy.gabimoreno.gabinimble.domain.OffsetToAlphaCalculator
 import soy.gabimoreno.gabinimble.libbase.fragment.BaseFragment
 import soy.gabimoreno.gabinimble.libframework.extension.*
-import soy.gabimoreno.gabinimble.presentation.main.service.PlayerService2
+import soy.gabimoreno.gabinimble.presentation.main.service.PlayerService
 
 class MainDetailFragment : BaseFragment<
         MainDetailViewModel.ViewState,
@@ -111,12 +111,12 @@ class MainDetailFragment : BaseFragment<
         val intent = Intent(requireContext(), PlayerService::class.java)
         intent.putExtra(PlayerService.EXTRA_SONG_NAME, songName)*/
 
-        val intent = PlayerService2.getIntent(requireContext(), song)
+        val intent = PlayerService.getIntent(requireContext(), song)
         requireContext().startForegroundService(intent)
     }
 
     private fun stopPlayer() {
-        val intent = Intent(requireContext(), PlayerService2::class.java)
+        val intent = Intent(requireContext(), PlayerService::class.java)
         requireContext().stopService(intent)
     }
 }
