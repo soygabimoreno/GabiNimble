@@ -14,7 +14,6 @@ import soy.gabimoreno.gabinimble.libplayer.Player
 import soy.gabimoreno.gabinimble.presentation.main.MainActivity
 import soy.gabimoreno.gabinimble.presentation.main.service.child.PausePlayerService
 import soy.gabimoreno.gabinimble.presentation.main.service.child.PlayPlayerService
-import soy.gabimoreno.gabinimble.presentation.main.service.child.StopPlayerService
 
 class PlayerService : Service() {
 
@@ -27,7 +26,7 @@ class PlayerService : Service() {
     override fun onBind(intent: Intent?): IBinder? = null
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        val text = intent?.getStringExtra(EXTRA_SONG_NAME) ?: "Unknown song name"
+        val songName = intent?.getStringExtra(EXTRA_SONG_NAME) ?: "Unknown song name"
 
         val notificationIntent = Intent(this, MainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(
@@ -39,36 +38,23 @@ class PlayerService : Service() {
 
         val notification: Notification = NotificationCompat.Builder(this, App.CHANNEL_ID)
             .setContentTitle(getString(R.string.app_name))
-            .setContentText(text)
+            .setContentText(songName)
             .setSmallIcon(R.drawable.ic_notification)
             .setPriority(NotificationManager.IMPORTANCE_LOW)
             .setContentIntent(pendingIntent)
-            .addAction(R.drawable.exo_icon_play, getString(R.string.play), buildPlayPendingIntent())
-            .addAction(R.drawable.exo_icon_pause, getString(R.string.pause), buildPausePendingIntent())
-            .addAction(R.drawable.exo_icon_stop, getString(R.string.stop), buildStopPendingIntent())
+            .addAction(R.drawable.exo_icon_play, getString(R.string.play), buildPendingIntent<PlayPlayerService>())
+            .addAction(R.drawable.exo_icon_pause, getString(R.string.pause), buildPendingIntent<PausePlayerService>())
+//            .addAction(R.drawable.exo_icon_stop, getString(R.string.stop), buildPendingIntent<StopPlayerService>())
             .build()
+
         startForeground(1, notification)
         return START_STICKY
     }
 
-    private fun buildPlayPendingIntent(): PendingIntent? = PendingIntent.getService(
+    private inline fun <reified T : Service> buildPendingIntent(): PendingIntent? = PendingIntent.getService(
         this,
         0,
-        Intent(this, PlayPlayerService::class.java),
-        0
-    )
-
-    private fun buildPausePendingIntent(): PendingIntent? = PendingIntent.getService(
-        this,
-        0,
-        Intent(this, PausePlayerService::class.java),
-        0
-    )
-
-    private fun buildStopPendingIntent(): PendingIntent? = PendingIntent.getService(
-        this,
-        0,
-        Intent(this, StopPlayerService::class.java),
+        Intent(this, T::class.java),
         0
     )
 
