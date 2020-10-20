@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 data class DbSong(
     @PrimaryKey(autoGenerate = true) val id: Long,
     val artist: String,
+    val filename: String,
     val name: String,
     val description: String,
     val thumbnailUrl: String,

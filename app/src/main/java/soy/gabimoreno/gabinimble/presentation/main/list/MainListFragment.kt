@@ -50,7 +50,7 @@ class MainListFragment : BaseFragment<
             viewHolderCreation { view, _ ->
                 SongsTopViewHolder(view) { song ->
                     viewModel.handleSongClicked(
-                        Category.Filename.FEATURED.filename,
+                        Category.Type.FEATURED.filename,
                         song
                     )
                 }
@@ -68,7 +68,7 @@ class MainListFragment : BaseFragment<
             viewHolderCreation { view, _ ->
                 SongsBottomViewHolder(view) { song ->
                     viewModel.handleSongClicked(
-                        Category.Filename.REMEMBER.filename,
+                        Category.Type.REMEMBER.filename,
                         song
                     )
                 }
@@ -86,7 +86,7 @@ class MainListFragment : BaseFragment<
             viewHolderCreation { view, _ ->
                 SongsBottomViewHolder(view) { song ->
                     viewModel.handleSongClicked(
-                        Category.Filename.MUSICA_DIVERTIDA.filename,
+                        Category.Type.MUSICA_DIVERTIDA.filename,
                         song
                     )
                 }
@@ -138,7 +138,7 @@ class MainListFragment : BaseFragment<
             val position = vpSongsTop.currentItem
             val currentPurchasedSong = featuredListAdapter.currentList[position]
             viewModel.handleSongClicked(
-                Category.Filename.MUSICA_DIVERTIDA.filename,
+                Category.Type.MUSICA_DIVERTIDA.filename,
                 currentPurchasedSong
             )
         }

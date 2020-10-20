@@ -22,13 +22,13 @@ class MainListViewModel(
     private fun handleLoadContent() {
         updateViewState(ViewState.Loading)
         viewModelScope.launch {
-            val featuredSongs = getSongsUseCase(Category.Filename.FEATURED.filename)
-            val rememberSongs = getSongsUseCase(Category.Filename.REMEMBER.filename)
-            val musicaDivertidaSongs = getSongsUseCase(Category.Filename.MUSICA_DIVERTIDA.filename)
+            val featuredSongs = getSongsUseCase(Category.Type.FEATURED.filename)
+            val rememberSongs = getSongsUseCase(Category.Type.REMEMBER.filename)
+            val musicaDivertidaSongs = getSongsUseCase(Category.Type.MUSICA_DIVERTIDA.filename)
             val categories = listOf(
-                Category(Category.Filename.FEATURED.filename, featuredSongs),
-                Category(Category.Filename.REMEMBER.filename, rememberSongs),
-                Category(Category.Filename.MUSICA_DIVERTIDA.filename, musicaDivertidaSongs)
+                Category(Category.Type.FEATURED.filename, featuredSongs),
+                Category(Category.Type.REMEMBER.filename, rememberSongs),
+                Category(Category.Type.MUSICA_DIVERTIDA.filename, musicaDivertidaSongs)
             )
             updateViewState(ViewState.Content(categories))
         }

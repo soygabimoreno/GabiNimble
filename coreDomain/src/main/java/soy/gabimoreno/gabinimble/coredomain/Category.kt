@@ -7,7 +7,7 @@ data class Category(
     val songs: List<Song>
 ) : Serializable {
 
-    enum class Filename(val filename: String) {
+    enum class Type(val filename: String) {
         FEATURED("featured"),
         REMEMBER("remember"),
         MUSICA_DIVERTIDA("musica-divertida")

@@ -13,16 +13,16 @@ class SongDbDatasource(songDb: SongDb) : SongLocalDatasource {
 
     private val songDao = songDb.songDao()
 
-    override suspend fun isEmpty(): Boolean = withContext(Dispatchers.IO) {
-        songDao.songCount() <= 0
+    override suspend fun isEmpty(filename: String): Boolean = withContext(Dispatchers.IO) {
+        songDao.songCount(filename) <= 0
     }
 
-    override suspend fun getSongs(): List<Song> = withContext(Dispatchers.IO) {
-        songDao.getAll().map(DbSong::toSong)
+    override suspend fun getSongs(filename: String): List<Song> = withContext(Dispatchers.IO) {
+        songDao.getAll(filename).map(DbSong::toSong)
     }
 
-    override suspend fun findById(songId: Long): Song = withContext(Dispatchers.IO) {
-        songDao.findById(songId).toSong()
+    override suspend fun findById(filename: String, songId: Long): Song = withContext(Dispatchers.IO) {
+        songDao.findById(filename, songId).toSong()
     }
 
     override suspend fun saveSongs(songs: List<Song>): Unit = withContext(Dispatchers.IO) {
