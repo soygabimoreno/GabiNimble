@@ -24,7 +24,7 @@
 
             <TextView
                 android:id="@+id/tvRememberTitle"
-                style="@style/Tv.Medium.Black.L"
+                style="@style/Tv.Medium.White.L"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_sm"
@@ -45,7 +45,7 @@
 
             <TextView
                 android:id="@+id/tvMusicaDivertidaTitle"
-                style="@style/Tv.Medium.Black.L"
+                style="@style/Tv.Medium.White.L"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_sm"
