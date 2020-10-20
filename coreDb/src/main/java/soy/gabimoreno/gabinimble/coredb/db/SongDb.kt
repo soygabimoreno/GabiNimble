@@ -8,7 +8,7 @@ import soy.gabimoreno.gabinimble.coredb.model.DbSong
 
 @Database(
     entities = [DbSong::class],
-    version = 1
+    version = 2
 )
 abstract class SongDb : RoomDatabase() {
 
@@ -17,7 +17,9 @@ abstract class SongDb : RoomDatabase() {
             context,
             SongDb::class.java,
             "song-db"
-        ).build()
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     abstract fun songDao(): SongDao

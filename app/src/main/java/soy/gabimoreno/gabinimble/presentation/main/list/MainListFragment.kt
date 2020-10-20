@@ -138,7 +138,7 @@ class MainListFragment : BaseFragment<
             val position = vpSongsTop.currentItem
             val currentPurchasedSong = featuredListAdapter.currentList[position]
             viewModel.handleSongClicked(
-                Category.Type.MUSICA_DIVERTIDA.filename,
+                Category.Type.FEATURED.filename,
                 currentPurchasedSong
             )
         }
@@ -161,7 +161,7 @@ class MainListFragment : BaseFragment<
     }
 
     private fun initMusicaDivertidaSongs() {
-        rvMusicaDivertidaSongs.adapter = rememberListAdapter
+        rvMusicaDivertidaSongs.adapter = musicaDivertidaListAdapter
         rvMusicaDivertidaSongs.layoutManager = LinearLayoutManager(
             requireContext(),
             LinearLayoutManager.HORIZONTAL,
