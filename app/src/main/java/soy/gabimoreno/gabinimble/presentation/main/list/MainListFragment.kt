@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.layout_songs_bottom.*
 import kotlinx.android.synthetic.main.layout_songs_top.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import soy.gabimoreno.gabinimble.R
+import soy.gabimoreno.gabinimble.coredomain.Category
 import soy.gabimoreno.gabinimble.coredomain.Song
 import soy.gabimoreno.gabinimble.domain.OffsetToAlphaCalculator
 import soy.gabimoreno.gabinimble.libbase.fragment.BaseFragment
@@ -28,18 +29,18 @@ class MainListFragment : BaseFragment<
 
     companion object {
         fun newInstance(
-            navigateToSongDetail: (Song) -> Unit
+            navigateToSongDetail: (filename: String, song: Song) -> Unit
         ) = MainListFragment().apply {
             this.navigateToSongDetail = navigateToSongDetail
         }
     }
 
-    private lateinit var navigateToSongDetail: (Song) -> Unit
+    private lateinit var navigateToSongDetail: (filename: String, song: Song) -> Unit
 
     override val layoutResId = R.layout.fragment_main_list
     override val viewModel: MainListViewModel by viewModel()
 
-    private val songsTopListAdapter: ListAdapter<Song, SongsTopViewHolder> by lazy {
+    private val featuredListAdapter: ListAdapter<Song, SongsTopViewHolder> by lazy {
         createListAdapter {
             layout { R.layout.item_song_top }
 
@@ -48,13 +49,16 @@ class MainListFragment : BaseFragment<
 
             viewHolderCreation { view, _ ->
                 SongsTopViewHolder(view) { song ->
-                    viewModel.handleSongClicked(song)
+                    viewModel.handleSongClicked(
+                        Category.Filename.FEATURED.filename,
+                        song
+                    )
                 }
             }
         }
     }
 
-    private val songsBottomListAdapter: ListAdapter<Song, SongsBottomViewHolder> by lazy {
+    private val rememberListAdapter: ListAdapter<Song, SongsBottomViewHolder> by lazy {
         createListAdapter {
             layout { R.layout.item_song_bottom }
 
@@ -63,7 +67,28 @@ class MainListFragment : BaseFragment<
 
             viewHolderCreation { view, _ ->
                 SongsBottomViewHolder(view) { song ->
-                    viewModel.handleSongClicked(song)
+                    viewModel.handleSongClicked(
+                        Category.Filename.REMEMBER.filename,
+                        song
+                    )
+                }
+            }
+        }
+    }
+
+    private val musicaDivertidaListAdapter: ListAdapter<Song, SongsBottomViewHolder> by lazy {
+        createListAdapter {
+            layout { R.layout.item_song_bottom }
+
+            compareItemsByReference { oldItem, newItem -> oldItem.id == newItem.id }
+            compareItemsByContent { oldItem, newItem -> oldItem == newItem }
+
+            viewHolderCreation { view, _ ->
+                SongsBottomViewHolder(view) { song ->
+                    viewModel.handleSongClicked(
+                        Category.Filename.MUSICA_DIVERTIDA.filename,
+                        song
+                    )
                 }
             }
         }
@@ -73,7 +98,8 @@ class MainListFragment : BaseFragment<
         initSwipeRefreshLayout()
         initFabs()
         initPurchasedMain()
-        initSongsBottom()
+        initRememberSongs()
+        initMusicaDivertidaSongs()
     }
 
     private fun initSwipeRefreshLayout() {
@@ -92,39 +118,51 @@ class MainListFragment : BaseFragment<
     }
 
     private fun initPurchasedMain() {
-        vpSongsTop.adapter = songsTopListAdapter
+        vpSongsTop.adapter = featuredListAdapter
         vpSongsTop.registerOnPageChangeCallback(
             object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
-                    setPurchasedSongTitle(position)
+                    setFeaturedSongTitle(position)
                 }
 
                 override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
                     tvNameTop.alpha = positionOffset.offsetToAlpha()
                     if (positionOffset > 0.5) {
-                        setPurchasedSongTitle(position + 1)
+                        setFeaturedSongTitle(position + 1)
                     } else {
-                        setPurchasedSongTitle(position)
+                        setFeaturedSongTitle(position)
                     }
                 }
             })
         btnListenSong.setOnClickListener {
             val position = vpSongsTop.currentItem
-            val currentPurchasedSong = songsTopListAdapter.currentList[position]
-            viewModel.handleSongClicked(currentPurchasedSong)
+            val currentPurchasedSong = featuredListAdapter.currentList[position]
+            viewModel.handleSongClicked(
+                Category.Filename.MUSICA_DIVERTIDA.filename,
+                currentPurchasedSong
+            )
         }
     }
 
-    private fun setPurchasedSongTitle(position: Int) {
-        val currentPurchasedSong = songsTopListAdapter.currentList[position]
+    private fun setFeaturedSongTitle(position: Int) {
+        val currentPurchasedSong = featuredListAdapter.currentList[position]
         with(currentPurchasedSong) {
             tvNameTop.text = name
         }
     }
 
-    private fun initSongsBottom() {
-        rvSongsBottom.adapter = songsBottomListAdapter
-        rvSongsBottom.layoutManager = LinearLayoutManager(
+    private fun initRememberSongs() {
+        rvRememberSongs.adapter = rememberListAdapter
+        rvRememberSongs.layoutManager = LinearLayoutManager(
+            requireContext(),
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
+    }
+
+    private fun initMusicaDivertidaSongs() {
+        rvMusicaDivertidaSongs.adapter = rememberListAdapter
+        rvMusicaDivertidaSongs.layoutManager = LinearLayoutManager(
             requireContext(),
             LinearLayoutManager.HORIZONTAL,
             false
@@ -135,19 +173,23 @@ class MainListFragment : BaseFragment<
         when (viewState) {
             MainListViewModel.ViewState.Loading -> showLoading()
             MainListViewModel.ViewState.Error -> showError()
-            is MainListViewModel.ViewState.Content -> showContent(viewState.songs)
+            is MainListViewModel.ViewState.Content -> showContent(viewState.categories)
         }.exhaustive
     }
 
-    private fun showContent(songs: List<Song>) {
+    private fun showContent(categories: List<Category>) {
         hideLoading()
-        val purchasedMain = songs.subList(0, 4)
-        songsTopListAdapter.submitList(purchasedMain)
+        val featuredSongs = categories[0].songs
+        featuredListAdapter.submitList(featuredSongs)
         wdIndicator.setViewPager2(vpSongsTop)
 
-        val popularMain = songs.subList(4, songs.size)
-        songsBottomListAdapter.submitList(popularMain)
-        rvSongsBottom.scrollToPosition(0)
+        val rememberSongs = categories[1].songs
+        rememberListAdapter.submitList(rememberSongs)
+        rvRememberSongs.scrollToPosition(0)
+
+        val musicaDivertidaSongs = categories[2].songs
+        musicaDivertidaListAdapter.submitList(musicaDivertidaSongs)
+        rvMusicaDivertidaSongs.scrollToPosition(0)
     }
 
     private fun showLoading() {
@@ -167,7 +209,7 @@ class MainListFragment : BaseFragment<
         when (viewEvent) {
             is MainListViewModel.ViewEvents.NavigateToWeb -> navigateToWeb(viewEvent.uriString)
             MainListViewModel.ViewEvents.SearchClicked -> toast(R.string.search_not_available)
-            is MainListViewModel.ViewEvents.NavigateToMainDetail -> navigateToSongDetail(viewEvent.song)
+            is MainListViewModel.ViewEvents.NavigateToMainDetail -> navigateToSongDetail(viewEvent.filename, viewEvent.song)
         }.exhaustive
     }
 

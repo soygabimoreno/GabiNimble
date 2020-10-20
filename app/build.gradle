@@ -11,9 +11,9 @@ android {
 
     signingConfigs {
         release {
+            keyAlias properties.getProperty('keystore.keyAlias')
             storeFile file(properties.getProperty('keystore.storeFile'))
             storePassword properties.getProperty('keystore.storePassword')
-            keyAlias properties.getProperty('keystore.keyAlias')
             keyPassword properties.getProperty('keystore.keyPassword')
         }
     }

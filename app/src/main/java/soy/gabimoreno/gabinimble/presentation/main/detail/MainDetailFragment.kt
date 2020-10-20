@@ -18,19 +18,24 @@ class MainDetailFragment : BaseFragment<
         >(), OffsetToAlphaCalculator {
 
     companion object {
+        private const val ARG_SONG_FILENAME = "ARG_SONG_FILENAME"
         private const val ARG_SONG_ID = "ARG_SONG_ID"
 
         fun newInstance(
+            filename: String,
             songId: Long,
         ) = MainDetailFragment().withArgs {
+            putString(ARG_SONG_FILENAME, filename)
             putLong(ARG_SONG_ID, songId)
         }
     }
 
     override val layoutResId = R.layout.fragment_main_detail
     override val viewModel: MainDetailViewModel by viewModel() {
+        val filename = requireArguments().getString(ARG_SONG_FILENAME)!!
         val songId = requireArguments().getLong(ARG_SONG_ID)
         val params = MainDetailViewModel.Params(
+            filename = filename,
             songId = songId
         )
         parametersOf(params)

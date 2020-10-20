@@ -17,9 +17,11 @@ class MainDetailViewModel(
         MainDetailViewModel.ViewEvents>() {
 
     data class Params(
+        val filename: String,
         val songId: Long
     )
 
+    private val filename = params.filename
     private val songId = params.songId
 
     init {
@@ -29,7 +31,7 @@ class MainDetailViewModel(
     private fun handleLoadContent() {
         updateViewState(ViewState.Loading)
         viewModelScope.launch {
-            val song = findSongByIdUseCase(songId)
+            val song = findSongByIdUseCase(filename, songId)
             updateViewState(ViewState.Content(song))
         }
     }
@@ -62,7 +64,7 @@ class MainDetailViewModel(
 
     fun handleOnResume() {
         viewModelScope.launch {
-            val song = findSongByIdUseCase(songId)
+            val song = findSongByIdUseCase(filename, songId)
             sendViewEvent(ViewEvents.PlayPlayer(song))
         }
     }

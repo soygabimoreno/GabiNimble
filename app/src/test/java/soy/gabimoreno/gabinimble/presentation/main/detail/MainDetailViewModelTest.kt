@@ -6,6 +6,7 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.TestCoroutineScope
 import kotlinx.coroutines.test.resetMain
@@ -19,6 +20,7 @@ import soy.gabimoreno.gabinimble.buildFakeSong
 import soy.gabimoreno.gabinimble.coredata.usecase.FindSongByIdUseCase
 import soy.gabimoreno.gabinimble.libplayer.Player
 
+@ExperimentalCoroutinesApi
 class MainDetailViewModelTest {
 
     @get:Rule
@@ -30,6 +32,7 @@ class MainDetailViewModelTest {
     private val findSongByIdUseCase = mockk<FindSongByIdUseCase>()
     private val player = mockk<Player>(relaxed = true)
 
+    private val filename = "foo"
     private val songId = 3210L
 
     @Before
@@ -49,7 +52,7 @@ class MainDetailViewModelTest {
 
         buildViewModel()
 
-        coVerify(exactly = 1) { findSongByIdUseCase(songId) }
+        coVerify(exactly = 1) { findSongByIdUseCase(filename, songId) }
     }
 
     @Test
@@ -97,12 +100,12 @@ class MainDetailViewModelTest {
     }
 
     private fun givenRightSongRetrieved() {
-        coEvery { findSongByIdUseCase(songId) } returns buildFakeSong()
+        coEvery { findSongByIdUseCase(filename, songId) } returns buildFakeSong()
     }
 
     private fun buildViewModel() = MainDetailViewModel(
         findSongByIdUseCase = findSongByIdUseCase,
         player = player,
-        params = MainDetailViewModel.Params(songId)
+        params = MainDetailViewModel.Params(filename, songId)
     )
 }

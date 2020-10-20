@@ -8,9 +8,9 @@ class SongRepository(
     private val songLocalDatasource: SongLocalDatasource,
     private val songRemoteDatasource: SongRemoteDatasource
 ) {
-    suspend fun getSongs(): List<Song> {
+    suspend fun getSongs(filename: String): List<Song> {
         if (songLocalDatasource.isEmpty()) {
-            val remoteSongs = songRemoteDatasource.getSongs()
+            val remoteSongs = songRemoteDatasource.getSongs(filename)
             songLocalDatasource.saveSongs(remoteSongs)
         }
         return songLocalDatasource.getSongs()
@@ -21,9 +21,9 @@ class SongRepository(
         return songLocalDatasource.getSongs()
     }
 
-    suspend fun findById(songId: Long): Song {
+    suspend fun findById(filename: String, songId: Long): Song {
         if (songLocalDatasource.isEmpty()) {
-            val remoteSongs = songRemoteDatasource.getSongs()
+            val remoteSongs = songRemoteDatasource.getSongs(filename)
             songLocalDatasource.saveSongs(remoteSongs)
         }
         return songLocalDatasource.findById(songId)

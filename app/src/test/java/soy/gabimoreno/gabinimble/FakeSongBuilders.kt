@@ -1,5 +1,6 @@
 package soy.gabimoreno.gabinimble
 
+import soy.gabimoreno.gabinimble.coredomain.Category
 import soy.gabimoreno.gabinimble.coredomain.Song
 
 fun buildFakeSong() = Song(
@@ -20,12 +21,18 @@ fun buildFakeSongs() = listOf(
     buildFakeSong().copy(id = 7),
 )
 
-fun List<Song>.isEqualTo(songs: List<Song>): Boolean {
-    if (size != songs.size) {
+fun buildFakeCategories() = listOf(
+    Category("Featured", buildFakeSongs()),
+    Category("Remember", buildFakeSongs()),
+    Category("Musica Divertida", buildFakeSongs())
+)
+
+fun List<Category>.isEqualTo(categories: List<Category>): Boolean {
+    if (size != categories.size) {
         return false
     }
     forEachIndexed { index, value ->
-        if (songs[index] != value) {
+        if (categories[index] != value) {
             return false
         }
     }

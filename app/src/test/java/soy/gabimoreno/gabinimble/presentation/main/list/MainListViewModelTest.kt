@@ -15,6 +15,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import soy.gabimoreno.gabinimble.buildFakeCategories
 import soy.gabimoreno.gabinimble.buildFakeSong
 import soy.gabimoreno.gabinimble.buildFakeSongs
 import soy.gabimoreno.gabinimble.coredata.usecase.DeleteAllSongsFromLocalUseCase
@@ -33,6 +34,8 @@ class MainListViewModelTest {
     private val getSongsUseCase = mockk<GetSongsUseCase>()
     private val deleteAllSongsFromLocalUseCase = mockk<DeleteAllSongsFromLocalUseCase>(relaxed = true)
 
+    private val filename = "foo"
+
     @Before
     fun setUp() {
         Dispatchers.setMain(testDispatcher)
@@ -50,7 +53,7 @@ class MainListViewModelTest {
 
         buildViewModel()
 
-        coVerify(exactly = 1) { getSongsUseCase() }
+        coVerify(exactly = 1) { getSongsUseCase(filename) }
     }
 
     @Test
@@ -61,7 +64,7 @@ class MainListViewModelTest {
 
         val state = viewModel.viewState.value!!
         assertTrue(state is MainListViewModel.ViewState.Content)
-        assertTrue(buildFakeSongs().isEqualTo((state as MainListViewModel.ViewState.Content).songs))
+        assertTrue(buildFakeCategories().isEqualTo((state as MainListViewModel.ViewState.Content).categories))
     }
 
     @Test
@@ -69,12 +72,12 @@ class MainListViewModelTest {
         givenRightSongsRetrieved()
         val viewModel = buildViewModel()
 
-        coVerify(exactly = 1) { getSongsUseCase() }
+        coVerify(exactly = 1) { getSongsUseCase(filename) }
 
         viewModel.handleCleanDbAndLoadContentAgain()
 
         coVerify(exactly = 1) { deleteAllSongsFromLocalUseCase() }
-        coVerify(exactly = 2) { getSongsUseCase() }
+        coVerify(exactly = 2) { getSongsUseCase(filename) }
     }
 
     @Test
@@ -106,7 +109,7 @@ class MainListViewModelTest {
         val viewModel = buildViewModel()
 
         val song = buildFakeSong()
-        viewModel.handleSongClicked(song)
+        viewModel.handleSongClicked(filename, song)
 
         val event = viewModel.viewEvents.poll()
         assertTrue(event is MainListViewModel.ViewEvents.NavigateToMainDetail)
@@ -114,7 +117,7 @@ class MainListViewModelTest {
     }
 
     private fun givenRightSongsRetrieved() {
-        coEvery { getSongsUseCase() } returns buildFakeSongs()
+        coEvery { getSongsUseCase(filename) } returns buildFakeSongs()
     }
 
     private fun buildViewModel() = MainListViewModel(

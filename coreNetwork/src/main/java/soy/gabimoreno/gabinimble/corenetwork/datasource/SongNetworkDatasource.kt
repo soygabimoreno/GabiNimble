@@ -8,8 +8,8 @@ class SongNetworkDatasource(
     private val songApiClient: SongApiClient
 ) : SongRemoteDatasource {
 
-    override suspend fun getSongs(): List<Song> {
+    override suspend fun getSongs(filename: String): List<Song> {
         return songApiClient.service
-            .getSongs()
+            .getSongs(filename)
     }
 }
