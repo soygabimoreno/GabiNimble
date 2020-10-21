@@ -6,6 +6,7 @@ import soy.gabimoreno.gabinimble.coredomain.Song
 fun buildFakeSong() = Song(
     id = 1,
     artist = "GABI NIMBLE",
+    filename = "foo",
     name = "Awesome Title",
     description = "1. WAND - Happiness",
     thumbnailUrl = "https://foo.com",
@@ -22,9 +23,9 @@ fun buildFakeSongs() = listOf(
 )
 
 fun buildFakeCategories() = listOf(
-    Category("Featured", buildFakeSongs()),
-    Category("Remember", buildFakeSongs()),
-    Category("Musica Divertida", buildFakeSongs())
+    Category("featured", buildFakeSongs()),
+    Category("remember", buildFakeSongs()),
+    Category("musica-divertida", buildFakeSongs().reversed())
 )
 
 fun List<Category>.isEqualTo(categories: List<Category>): Boolean {

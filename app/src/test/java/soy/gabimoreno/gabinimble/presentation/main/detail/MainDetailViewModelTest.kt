@@ -89,6 +89,28 @@ class MainDetailViewModelTest {
     }
 
     @Test
+    fun `if the email button fab is clicked, then its view event is triggered`() {
+        givenRightSongRetrieved()
+        val viewModel = buildViewModel()
+
+        viewModel.handleSendEmailClicked()
+
+        val event = viewModel.viewEvents.poll()
+        assertTrue(event is MainDetailViewModel.ViewEvents.SendEmail)
+    }
+
+    @Test
+    fun `if the rate button fab is clicked, then its view event is triggered`() {
+        givenRightSongRetrieved()
+        val viewModel = buildViewModel()
+
+        viewModel.handleRateClicked()
+
+        val event = viewModel.viewEvents.poll()
+        assertTrue(event is MainDetailViewModel.ViewEvents.Rate)
+    }
+
+    @Test
     fun `when the content is loaded, then the player is called`() {
         givenRightSongRetrieved()
         val viewModel = buildViewModel()

@@ -53,7 +53,7 @@ class MainListViewModelTest {
 
         buildViewModel()
 
-        coVerify(exactly = 1) { getSongsUseCase(filename) }
+        coVerify(exactly = 3) { getSongsUseCase(any()) }
     }
 
     @Test
@@ -72,12 +72,12 @@ class MainListViewModelTest {
         givenRightSongsRetrieved()
         val viewModel = buildViewModel()
 
-        coVerify(exactly = 1) { getSongsUseCase(filename) }
+        coVerify(exactly = 3) { getSongsUseCase(any()) }
 
         viewModel.handleCleanDbAndLoadContentAgain()
 
         coVerify(exactly = 1) { deleteAllSongsFromLocalUseCase() }
-        coVerify(exactly = 2) { getSongsUseCase(filename) }
+        coVerify(exactly = 6) { getSongsUseCase(any()) }
     }
 
     @Test
@@ -117,7 +117,7 @@ class MainListViewModelTest {
     }
 
     private fun givenRightSongsRetrieved() {
-        coEvery { getSongsUseCase(filename) } returns buildFakeSongs()
+        coEvery { getSongsUseCase(any()) } returns buildFakeSongs()
     }
 
     private fun buildViewModel() = MainListViewModel(
