@@ -44,11 +44,7 @@ class MainDetailViewModel(
 
     fun handleShareClicked() {
         viewModelScope.launch {
-            val state = getViewState()
-            if (state is ViewState.Content) {
-                val song = state.song
-                sendViewEvent(ViewEvents.ShareSong(song))
-            }
+            sendViewEvent(ViewEvents.Share)
         }
     }
 
@@ -82,7 +78,7 @@ class MainDetailViewModel(
     }
 
     sealed class ViewEvents {
-        data class ShareSong(val song: Song) : ViewEvents()
+        object Share : ViewEvents()
         object NavigateToBack : ViewEvents()
         data class PlayPlayer(val song: Song) : ViewEvents()
         object StopPlayer : ViewEvents()

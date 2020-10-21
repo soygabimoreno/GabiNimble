@@ -92,23 +92,21 @@ class MainDetailFragment : BaseFragment<
     override fun handleViewEvent(viewEvent: MainDetailViewModel.ViewEvents) {
         when (viewEvent) {
             MainDetailViewModel.ViewEvents.NavigateToBack -> requireActivity().onBackPressed()
-            is MainDetailViewModel.ViewEvents.ShareSong -> shareSong(viewEvent.song)
+            MainDetailViewModel.ViewEvents.Share -> share()
             is MainDetailViewModel.ViewEvents.PlayPlayer -> playPlayer(viewEvent.song)
             MainDetailViewModel.ViewEvents.StopPlayer -> stopPlayer()
         }.exhaustive
     }
 
-    private fun shareSong(song: Song) {
-        with(song) {
-            val sendIntent = Intent().apply {
-                action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, String.format(getString(R.string.share_song_text), name, audioUrl))
-                type = "text/plain"
-            }
-
-            val shareIntent = Intent.createChooser(sendIntent, null)
-            startActivity(shareIntent)
+    private fun share() {
+        val sendIntent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, getString(R.string.share_song_text))
+            type = "text/plain"
         }
+
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        startActivity(shareIntent)
     }
 
     private fun playPlayer(song: Song) {

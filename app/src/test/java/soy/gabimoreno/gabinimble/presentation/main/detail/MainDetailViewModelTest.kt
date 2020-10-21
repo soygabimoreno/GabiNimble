@@ -85,7 +85,7 @@ class MainDetailViewModelTest {
         viewModel.handleShareClicked()
 
         val event = viewModel.viewEvents.poll()
-        assertTrue(event is MainDetailViewModel.ViewEvents.ShareSong)
+        assertTrue(event is MainDetailViewModel.ViewEvents.Share)
     }
 
     @Test

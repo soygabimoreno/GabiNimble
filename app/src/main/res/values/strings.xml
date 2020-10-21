@@ -7,7 +7,7 @@
     <string name="musica_divertida">Musica Divertida</string>
     <string name="by_">By </string>
     <string name="search_not_available">😊 Search is not available yet 😊</string>
-    <string name="share_song_text">Did you listen this session? It\`s awesome! 😊\n%s\n%s</string>
+    <string name="share_song_text">Did you listen this session in the app? It\`s awesome!\nhttps://play.google.com/store/apps/details?id=soy.gabimoreno.gabinimble</string>
     <string name="play">Play</string>
     <string name="pause">Pause</string>
     <string name="stop">Stop</string>
