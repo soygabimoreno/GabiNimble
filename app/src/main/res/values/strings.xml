@@ -11,4 +11,9 @@
     <string name="play">Play</string>
     <string name="pause">Pause</string>
     <string name="stop">Stop</string>
+
+    <string name="email_title">Select email</string>
+    <string name="email_to">info@gabinimble.com</string>
+    <string name="email_subject">EMAIL FROM GABI NIMBLE APP</string>
+
 </resources>

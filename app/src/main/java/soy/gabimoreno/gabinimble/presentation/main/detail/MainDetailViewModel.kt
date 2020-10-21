@@ -48,6 +48,18 @@ class MainDetailViewModel(
         }
     }
 
+    fun handleSendEmailClicked() {
+        viewModelScope.launch {
+            sendViewEvent(ViewEvents.SendEmail)
+        }
+    }
+
+    fun handleRateClicked() {
+        viewModelScope.launch {
+            sendViewEvent(ViewEvents.Rate)
+        }
+    }
+
     fun initPlayer(pv: StyledPlayerView, song: Song) {
         val audioUrl = song.audioUrl
         player.init(
@@ -65,7 +77,7 @@ class MainDetailViewModel(
         }
     }
 
-    fun handleStopPlayer() {
+    private fun handleStopPlayer() {
         viewModelScope.launch {
             sendViewEvent(ViewEvents.StopPlayer)
         }
@@ -79,6 +91,8 @@ class MainDetailViewModel(
 
     sealed class ViewEvents {
         object Share : ViewEvents()
+        object SendEmail : ViewEvents()
+        object Rate : ViewEvents()
         object NavigateToBack : ViewEvents()
         data class PlayPlayer(val song: Song) : ViewEvents()
         object StopPlayer : ViewEvents()

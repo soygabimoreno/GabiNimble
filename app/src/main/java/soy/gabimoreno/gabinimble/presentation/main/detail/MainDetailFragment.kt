@@ -1,9 +1,11 @@
 package soy.gabimoreno.gabinimble.presentation.main.detail
 
 import android.content.Intent
+import android.net.Uri
 import kotlinx.android.synthetic.main.fragment_main_detail.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
+import soy.gabimoreno.gabinimble.BuildConfig
 import soy.gabimoreno.gabinimble.R
 import soy.gabimoreno.gabinimble.coredomain.Song
 import soy.gabimoreno.gabinimble.domain.OffsetToAlphaCalculator
@@ -57,6 +59,12 @@ class MainDetailFragment : BaseFragment<
         ibShare.setOnClickListener {
             viewModel.handleShareClicked()
         }
+        ibSendEmail.setOnClickListener {
+            viewModel.handleSendEmailClicked()
+        }
+        ibRate.setOnClickListener {
+            viewModel.handleRateClicked()
+        }
     }
 
     override fun renderViewState(viewState: MainDetailViewModel.ViewState) {
@@ -93,6 +101,8 @@ class MainDetailFragment : BaseFragment<
         when (viewEvent) {
             MainDetailViewModel.ViewEvents.NavigateToBack -> requireActivity().onBackPressed()
             MainDetailViewModel.ViewEvents.Share -> share()
+            MainDetailViewModel.ViewEvents.SendEmail -> sendEmail()
+            MainDetailViewModel.ViewEvents.Rate -> rate()
             is MainDetailViewModel.ViewEvents.PlayPlayer -> playPlayer(viewEvent.song)
             MainDetailViewModel.ViewEvents.StopPlayer -> stopPlayer()
         }.exhaustive
@@ -107,6 +117,23 @@ class MainDetailFragment : BaseFragment<
 
         val shareIntent = Intent.createChooser(sendIntent, null)
         startActivity(shareIntent)
+    }
+
+    private fun sendEmail() {
+        val intent = Intent(Intent.ACTION_SENDTO)
+        intent.data = Uri.parse("mailto:")
+        intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.email_to)))
+        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.email_subject))
+        startActivity(Intent.createChooser(intent, getString(R.string.email_title)))
+    }
+
+    private fun rate() {
+        val appPackageName = if (BuildConfig.DEBUG) "com.appacoustic.rt" else requireContext().packageName
+        try {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$appPackageName")))
+        } catch (exception: Exception) {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")))
+        }
     }
 
     private fun playPlayer(song: Song) {
