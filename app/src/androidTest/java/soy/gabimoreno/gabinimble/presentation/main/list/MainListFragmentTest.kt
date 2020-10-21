@@ -10,6 +10,8 @@ import com.schibsted.spain.barista.interaction.BaristaClickInteractions.clickOn
 import com.schibsted.spain.barista.interaction.BaristaListInteractions.clickListItem
 import com.schibsted.spain.barista.interaction.BaristaViewPagerInteractions.swipeViewPagerForward
 import okhttp3.mockwebserver.MockResponse
+import org.json.JSONObject
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -17,9 +19,13 @@ import org.koin.test.KoinTest
 import org.koin.test.get
 import soy.gabimoreno.gabinimble.MockWebServerRule
 import soy.gabimoreno.gabinimble.R
+import soy.gabimoreno.gabinimble.coredomain.Song
 import soy.gabimoreno.gabinimble.corenetwork.client.SongApiClient
 import soy.gabimoreno.gabinimble.fromJson
+import soy.gabimoreno.gabinimble.libframework.extension.toJSONArray
+import soy.gabimoreno.gabinimble.libframework.extension.toList
 import soy.gabimoreno.gabinimble.presentation.main.MainActivity
+import soy.gabimoreno.gabinimble.readJsonFile
 
 class MainListFragmentTest : KoinTest {
 
@@ -44,8 +50,19 @@ class MainListFragmentTest : KoinTest {
     }
 
     @Test
+    fun check_if_a_json_songs_file_can_be_reverted() {
+        val jsonString = readJsonFile(ApplicationProvider.getApplicationContext(), "songs.json")
+        val songs = jsonString.toList<Song>()
+
+        val songsReverted = songs.reversed()
+
+        val jsonArray = songsReverted.toJSONArray()
+        assertTrue(23L == (jsonArray.get(0) as JSONObject).getLong("id"))
+    }
+
+    @Test
     fun bottom_carousel_has_the_right_number_of_elements() =
-        assertRecyclerViewItemCount(R.id.rvSongsBottom, 19)
+        assertRecyclerViewItemCount(R.id.rvRememberSongs, 19)
 
     @Test
     fun assert_top_carousel_titles_are_shown_properly() {
@@ -57,7 +74,7 @@ class MainListFragmentTest : KoinTest {
 
     @Test
     fun when_user_clicks_one_item_of_the_bottom_carousel_then_detail_screen_shows_the_right_song() {
-        clickListItem(R.id.rvSongsBottom, 0)
+        clickListItem(R.id.rvRememberSongs, 0)
 
         assertDisplayed(R.id.tvName, "94 99")
     }

@@ -25,6 +25,8 @@ class Player(private val context: Context) {
     ) {
         this.onStop = onStop
         val trackSelector = DefaultTrackSelector(context)
+        player?.stop()
+        player?.release()
         player = SimpleExoPlayer.Builder(context)
             .setTrackSelector(trackSelector)
             .build()

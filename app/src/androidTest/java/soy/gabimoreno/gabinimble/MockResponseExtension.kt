@@ -9,7 +9,7 @@ import java.nio.charset.StandardCharsets.UTF_8
 fun MockResponse.fromJson(context: Context, jsonFile: String): MockResponse =
     setBody(readJsonFile(context, jsonFile))
 
-private fun readJsonFile(context: Context, jsonFilePath: String): String {
+fun readJsonFile(context: Context, jsonFilePath: String): String {
     var br: BufferedReader? = null
 
     try {

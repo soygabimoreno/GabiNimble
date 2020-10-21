@@ -24,7 +24,9 @@ class MainListViewModel(
         viewModelScope.launch {
             val featuredSongs = getSongsUseCase(Category.Type.FEATURED.filename)
             val rememberSongs = getSongsUseCase(Category.Type.REMEMBER.filename)
-            val musicaDivertidaSongs = getSongsUseCase(Category.Type.MUSICA_DIVERTIDA.filename)
+            val musicaDivertidaSongs = getSongsUseCase(
+                filename = Category.Type.MUSICA_DIVERTIDA.filename
+            ).reversed()
             val categories = listOf(
                 Category(Category.Type.FEATURED.filename, featuredSongs),
                 Category(Category.Type.REMEMBER.filename, rememberSongs),
