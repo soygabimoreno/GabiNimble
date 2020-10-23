@@ -3,12 +3,13 @@ package soy.gabimoreno.gabinimble.coredata.repository
 import soy.gabimoreno.gabinimble.coredata.datasource.SongLocalDatasource
 import soy.gabimoreno.gabinimble.coredata.datasource.SongRemoteDatasource
 import soy.gabimoreno.gabinimble.coredomain.Song
+import soy.gabimoreno.gabinimble.coredomain.repository.SongRepository
 
-class SongRepository(
+class DefaultSongRepository(
     private val songLocalDatasource: SongLocalDatasource,
     private val songRemoteDatasource: SongRemoteDatasource
-) {
-    suspend fun getSongs(filename: String): List<Song> {
+) : SongRepository {
+    override suspend fun getSongs(filename: String): List<Song> {
         if (songLocalDatasource.isEmpty(filename)) {
             val remoteSongs = songRemoteDatasource.getSongs(filename)
             val remoteSongsWithFileName = mutableListOf<Song>()
@@ -20,15 +21,21 @@ class SongRepository(
         return songLocalDatasource.getSongs(filename)
     }
 
-    suspend fun deleteAllSongsFromLocal() {
+    override suspend fun deleteAllSongsFromLocal() {
         songLocalDatasource.deleteAllSongs()
     }
 
-    suspend fun findById(filename: String, songId: Long): Song {
+    override suspend fun findById(
+        filename: String,
+        songId: Long
+    ): Song {
         if (songLocalDatasource.isEmpty(filename)) {
             val remoteSongs = songRemoteDatasource.getSongs(filename)
             songLocalDatasource.saveSongs(remoteSongs)
         }
-        return songLocalDatasource.findById(filename, songId)
+        return songLocalDatasource.findById(
+            filename,
+            songId
+        )
     }
 }

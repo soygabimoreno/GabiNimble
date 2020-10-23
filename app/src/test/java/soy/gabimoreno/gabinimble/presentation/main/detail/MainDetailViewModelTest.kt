@@ -17,7 +17,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import soy.gabimoreno.gabinimble.buildFakeSong
-import soy.gabimoreno.gabinimble.coredata.usecase.FindSongByIdUseCase
+import soy.gabimoreno.gabinimble.coredomain.usecase.FindSongByIdUseCase
 import soy.gabimoreno.gabinimble.libplayer.Player
 
 @ExperimentalCoroutinesApi

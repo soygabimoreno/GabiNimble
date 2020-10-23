@@ -3,8 +3,8 @@ package soy.gabimoreno.gabinimble.presentation.main.detail
 import androidx.lifecycle.viewModelScope
 import com.google.android.exoplayer2.ui.StyledPlayerView
 import kotlinx.coroutines.launch
-import soy.gabimoreno.gabinimble.coredata.usecase.FindSongByIdUseCase
 import soy.gabimoreno.gabinimble.coredomain.Song
+import soy.gabimoreno.gabinimble.coredomain.usecase.FindSongByIdUseCase
 import soy.gabimoreno.gabinimble.libbase.viewmodel.BaseViewModel
 import soy.gabimoreno.gabinimble.libplayer.Player
 

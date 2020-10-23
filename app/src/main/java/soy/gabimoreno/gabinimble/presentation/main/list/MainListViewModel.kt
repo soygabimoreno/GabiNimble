@@ -2,10 +2,10 @@ package soy.gabimoreno.gabinimble.presentation.main.list
 
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import soy.gabimoreno.gabinimble.coredata.usecase.DeleteAllSongsFromLocalUseCase
-import soy.gabimoreno.gabinimble.coredata.usecase.GetSongsUseCase
 import soy.gabimoreno.gabinimble.coredomain.Category
 import soy.gabimoreno.gabinimble.coredomain.Song
+import soy.gabimoreno.gabinimble.coredomain.usecase.DeleteAllSongsFromLocalUseCase
+import soy.gabimoreno.gabinimble.coredomain.usecase.GetSongsUseCase
 import soy.gabimoreno.gabinimble.libbase.viewmodel.BaseViewModel
 
 class MainListViewModel(

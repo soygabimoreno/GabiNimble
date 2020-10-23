@@ -18,8 +18,8 @@ import org.junit.Test
 import soy.gabimoreno.gabinimble.buildFakeCategories
 import soy.gabimoreno.gabinimble.buildFakeSong
 import soy.gabimoreno.gabinimble.buildFakeSongs
-import soy.gabimoreno.gabinimble.coredata.usecase.DeleteAllSongsFromLocalUseCase
-import soy.gabimoreno.gabinimble.coredata.usecase.GetSongsUseCase
+import soy.gabimoreno.gabinimble.coredomain.usecase.DeleteAllSongsFromLocalUseCase
+import soy.gabimoreno.gabinimble.coredomain.usecase.GetSongsUseCase
 import soy.gabimoreno.gabinimble.isEqualTo
 
 @ExperimentalCoroutinesApi

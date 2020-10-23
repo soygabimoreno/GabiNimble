@@ -1,7 +1,7 @@
-package soy.gabimoreno.gabinimble.coredata.usecase
+package soy.gabimoreno.gabinimble.coredomain.usecase
 
-import soy.gabimoreno.gabinimble.coredata.repository.SongRepository
 import soy.gabimoreno.gabinimble.coredomain.Song
+import soy.gabimoreno.gabinimble.coredomain.repository.SongRepository
 
 class FindSongByIdUseCase(
     private val songRepository: SongRepository

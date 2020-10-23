@@ -4,7 +4,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
-import soy.gabimoreno.gabinimble.coredata.usecase.FindSongByIdUseCase
+import soy.gabimoreno.gabinimble.coredomain.usecase.FindSongByIdUseCase
 import soy.gabimoreno.gabinimble.libplayer.Player
 
 val mainDetailModule = module {
