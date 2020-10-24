@@ -106,7 +106,10 @@ class PlayerService : Service() {
                     notification: Notification,
                     ongoing: Boolean
                 ) {
-                    startForeground(notificationId, notification)
+                    startForeground(
+                        notificationId,
+                        notification
+                    )
                 }
 
                 override fun onNotificationCancelled(
@@ -121,8 +124,8 @@ class PlayerService : Service() {
         notificationManager.setUseNavigationActions(false)
         notificationManager.setFastForwardIncrementMs(0)
         notificationManager.setRewindIncrementMs(0)
-        notificationManager.setUseStopAction(false)
-        notificationManager.setUseChronometer(false)
+        notificationManager.setUseStopAction(true)
+        notificationManager.setUseChronometer(true)
 
         notificationManager.setSmallIcon(R.drawable.ic_notification)
 
