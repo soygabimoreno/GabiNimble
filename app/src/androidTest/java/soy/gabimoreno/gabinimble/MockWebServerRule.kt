@@ -28,7 +28,10 @@ class MockWebServerRule : TestRule {
 
     private fun replaceBaseUrl() {
         val testModule = module {
-            single(named(InfrastructureUrl.BASE_URL_SONGS.key), override = true) {
+            single(
+                named(InfrastructureUrl.BASE_URL_SONGS.key),
+                override = true
+            ) {
                 askMockServerUrlOnAnotherThread()
             }
         }
@@ -37,10 +40,10 @@ class MockWebServerRule : TestRule {
 
     private fun askMockServerUrlOnAnotherThread(): String {
         var url = ""
-        val t = thread {
+        val thread = thread {
             url = server.url("/").toString()
         }
-        t.join()
+        thread.join()
         return url
     }
 }

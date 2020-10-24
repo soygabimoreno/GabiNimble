@@ -3,6 +3,7 @@ package soy.gabimoreno.gabinimble.presentation.main.list
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.rule.ActivityTestRule
+import androidx.test.rule.GrantPermissionRule
 import com.jakewharton.espresso.OkHttp3IdlingResource
 import com.schibsted.spain.barista.assertion.BaristaRecyclerViewAssertions.assertRecyclerViewItemCount
 import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
@@ -33,7 +34,17 @@ class MainListFragmentTest : KoinTest {
     val mockWebServerRule = MockWebServerRule()
 
     @get:Rule
-    val activityTestRule = ActivityTestRule(MainActivity::class.java, false, false)
+    val activityTestRule = ActivityTestRule(
+        MainActivity::class.java,
+        false,
+        false
+    )
+
+    @get:Rule
+    val grantPermissionRule: GrantPermissionRule =
+        GrantPermissionRule.grant(
+            "android.permission.INTERNET"
+        )
 
     @Before
     fun setUp() {
@@ -45,13 +56,19 @@ class MainListFragmentTest : KoinTest {
             )
         )
 
-        val resource = OkHttp3IdlingResource.create("OkHttp", get<SongApiClient>().okHttpClient)
+        val resource = OkHttp3IdlingResource.create(
+            "OkHttp",
+            get<SongApiClient>().okHttpClient
+        )
         IdlingRegistry.getInstance().register(resource)
     }
 
     @Test
     fun check_if_a_json_songs_file_can_be_reverted() {
-        val jsonString = readJsonFile(ApplicationProvider.getApplicationContext(), "songs.json")
+        val jsonString = readJsonFile(
+            ApplicationProvider.getApplicationContext(),
+            "songs.json"
+        )
         val songs = jsonString.toList<Song>()
 
         val songsReverted = songs.reversed()
@@ -62,34 +79,55 @@ class MainListFragmentTest : KoinTest {
 
     @Test
     fun bottom_carousel_has_the_right_number_of_elements() =
-        assertRecyclerViewItemCount(R.id.rvRememberSongs, 19)
+        assertRecyclerViewItemCount(
+            R.id.rvRememberSongs,
+            19
+        )
 
     @Test
     fun assert_top_carousel_titles_are_shown_properly() {
-        assertDisplayed(R.id.tvNameTop, "94 98")
+        assertDisplayed(
+            R.id.tvNameTop,
+            "94 98"
+        )
 
         swipeViewPagerForward(R.id.vpSongsTop)
-        assertDisplayed(R.id.tvNameTop, "93 95")
+        assertDisplayed(
+            R.id.tvNameTop,
+            "93 95"
+        )
     }
 
     @Test
     fun when_user_clicks_one_item_of_the_bottom_carousel_then_detail_screen_shows_the_right_song() {
-        clickListItem(R.id.rvRememberSongs, 0)
+        clickListItem(
+            R.id.rvRememberSongs,
+            0
+        )
 
-        assertDisplayed(R.id.tvName, "94 99")
+        assertDisplayed(
+            R.id.tvName,
+            "94 99"
+        )
     }
 
     @Test
     fun when_user_clicks_the_listen_song_button_then_detail_screen_shows_the_right_song() {
         clickOn(R.id.btnListenSong)
 
-        assertDisplayed(R.id.tvName, "94 98")
+        assertDisplayed(
+            R.id.tvName,
+            "94 98"
+        )
     }
 
     @Test
     fun when_user_clicks_one_item_of_the_top_carousel_then_detail_screen_shows_the_right_song() {
         clickOn(R.id.vpSongsTop)
 
-        assertDisplayed(R.id.tvName, "94 98")
+        assertDisplayed(
+            R.id.tvName,
+            "94 98"
+        )
     }
 }

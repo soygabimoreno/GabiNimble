@@ -130,7 +130,7 @@ object TestDependency {
 }
 
 object AndroidTestDependency {
-    val J_UNIT_EXT = "androidx.test.ext:junit:${TestVersion.J_UNIT_EXT}"
+    val J_UNIT_EXT = "androidx.test.ext:junit-ktx:${TestVersion.J_UNIT_EXT}"
     val TEST_RUNNER = "androidx.test:runner:${TestVersion.TEST_RUNNER}"
     val TEST_RULES = "androidx.test:rules:${TestVersion.TEST_RUNNER}"
     val KOIN_TEST = "org.koin:koin-test:${Version.KOIN}"
