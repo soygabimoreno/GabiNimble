@@ -24,7 +24,7 @@ allprojects {
         minSdkVersion = 23
         targetSdkVersion = 30
         versionCode = 7
-        versionName = "0.7.0"
+        versionName = "0.7.1"
     }
 }
 

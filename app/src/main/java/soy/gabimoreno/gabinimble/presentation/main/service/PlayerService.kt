@@ -25,16 +25,32 @@ class PlayerService : Service() {
 
         private const val EXTRA_SONG = "EXTRA_SONG"
 
-        fun start(context: Context, song: Song) {
-            context.startForegroundService(
-                Intent(context, PlayerService::class.java).apply {
-                    putExtra(EXTRA_SONG, song)
-                })
+        fun start(
+            context: Context,
+            song: Song
+        ) {
+            val intent = Intent(
+                context,
+                PlayerService::class.java
+            ).apply {
+                putExtra(
+                    EXTRA_SONG,
+                    song
+                )
+            }
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                context.startForegroundService(intent)
+            } else {
+                context.startService(intent)
+            }
         }
 
         fun stop(context: Context) {
             context.stopService(
-                Intent(context, PlayerService::class.java)
+                Intent(
+                    context,
+                    PlayerService::class.java
+                )
             )
         }
     }
@@ -70,8 +86,16 @@ class PlayerService : Service() {
             }
 
             override fun createCurrentContentIntent(player: com.google.android.exoplayer2.Player): PendingIntent? {
-                val intent = Intent(applicationContext, MainActivity::class.java)
-                return PendingIntent.getActivity(applicationContext, 0, intent, 0)
+                val intent = Intent(
+                    applicationContext,
+                    MainActivity::class.java
+                )
+                return PendingIntent.getActivity(
+                    applicationContext,
+                    0,
+                    intent,
+                    0
+                )
             }
         }
 
@@ -79,7 +103,11 @@ class PlayerService : Service() {
         return binder
     }
 
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+    override fun onStartCommand(
+        intent: Intent?,
+        flags: Int,
+        startId: Int
+    ): Int {
         val song = intent?.getSerializableExtra(EXTRA_SONG) as? Song
         song?.let {
             songName = song.name
