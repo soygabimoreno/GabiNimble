@@ -10,6 +10,7 @@ object Version {
     val RECYCLER_VIEW = "1.2.0-alpha02"
     val SWIPE_REFRESH_LAYOUT = "1.1.0"
     val RETROFIT = "2.9.0"
+    val MOSHI = "1.10.0"
     val ROOM = "2.2.5"
     val OK_HTTP_LOGGING_INTERCEPTOR = "4.8.1"
     val FIREBASE_ANALYTICS = "17.5.0"
@@ -76,6 +77,9 @@ object SquareDependency {
     val RETROFIT = "com.squareup.retrofit2:retrofit:${Version.RETROFIT}"
     val RETROFIT_GSON_CONVERTER = "com.squareup.retrofit2:converter-gson:${Version.RETROFIT}"
     val OK_HTTP_LOGGING_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor:${Version.OK_HTTP_LOGGING_INTERCEPTOR}"
+    val MOSHI = "com.squareup.moshi:moshi:${Version.MOSHI}"
+    val MOSHI_CODE_GEN = "com.squareup.moshi:moshi-kotlin-codegen:${Version.MOSHI}"
+    val RETROFIT_MOSHI_CONVERTER = "com.squareup.retrofit2:converter-moshi:${Version.RETROFIT}"
 }
 
 object RoomDependency {

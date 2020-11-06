@@ -8,6 +8,9 @@ dependencies {
     implementation SquareDependency.RETROFIT
     implementation SquareDependency.RETROFIT_GSON_CONVERTER
     implementation SquareDependency.OK_HTTP_LOGGING_INTERCEPTOR
+    implementation SquareDependency.MOSHI
+    kapt SquareDependency.MOSHI_CODE_GEN
+    implementation SquareDependency.RETROFIT_MOSHI_CONVERTER
 
     implementation KoinDependency.KOIN_SCOPE
 }

@@ -4,4 +4,7 @@ dependencies {
     implementation AndroidDependency.APP_COMPAT
     implementation AndroidDependency.SWIPE_REFRESH_LAYOUT
     implementation GoogleDependency.GSON
+    implementation SquareDependency.MOSHI
+    kapt SquareDependency.MOSHI_CODE_GEN
+    implementation SquareDependency.RETROFIT_MOSHI_CONVERTER
 }
