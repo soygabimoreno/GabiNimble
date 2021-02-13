@@ -3,10 +3,12 @@ package soy.gabimoreno.gabinimble.presentation.main
 import android.content.Context
 import android.content.Intent
 import android.view.Gravity
+import android.view.LayoutInflater
 import androidx.transition.Slide
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import soy.gabimoreno.gabinimble.R
 import soy.gabimoreno.gabinimble.coredomain.Song
+import soy.gabimoreno.gabinimble.databinding.ActivityMainBinding
 import soy.gabimoreno.gabinimble.libbase.activity.StatelessBaseActivity
 import soy.gabimoreno.gabinimble.libframework.extension.exhaustive
 import soy.gabimoreno.gabinimble.libframework.extension.navigateAddingToBackStackTo
@@ -15,18 +17,25 @@ import soy.gabimoreno.gabinimble.presentation.main.detail.MainDetailFragment
 import soy.gabimoreno.gabinimble.presentation.main.list.MainListFragment
 
 class MainActivity : StatelessBaseActivity<
-        MainViewModel.ViewEvents,
-        MainViewModel
-        >() {
+    ActivityMainBinding,
+    MainViewModel.ViewEvents,
+    MainViewModel
+    >() {
 
     companion object {
         fun launch(context: Context) {
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(
+                context,
+                MainActivity::class.java
+            )
             context.startActivity(intent)
         }
     }
 
-    override val layoutResId = R.layout.activity_main
+    override val viewBinding: (LayoutInflater) -> ActivityMainBinding = {
+        ActivityMainBinding.inflate(it)
+    }
+
     override val viewModel: MainViewModel by viewModel()
 
     override fun onBackPressed() {

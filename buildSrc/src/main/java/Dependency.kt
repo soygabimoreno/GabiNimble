@@ -1,10 +1,10 @@
 object Version {
-    val KOTLIN = "1.4.10"
+    val KOTLIN = "1.4.30"
 
-    val CORE_KTX = "1.3.1"
+    val CORE_KTX = "1.3.2"
     val COROUTINES = "1.3.9"
     val APP_COMPAT = "1.2.0"
-    val CONSTRAINT_LAYOUT = "2.0.1"
+    val CONSTRAINT_LAYOUT = "2.0.4"
     val LIFECYCLE = "2.2.0"
     val BROWSER = "1.2.0"
     val RECYCLER_VIEW = "1.2.0-alpha02"
@@ -12,13 +12,12 @@ object Version {
     val RETROFIT = "2.9.0"
     val ROOM = "2.2.5"
     val OK_HTTP_LOGGING_INTERCEPTOR = "4.8.1"
-    val FIREBASE_ANALYTICS = "17.5.0"
-    val FIREBASE_CRASHLYTICS = "17.2.1"
+    val FIREBASE_BOM = "26.3.0"
     val MATERIAL = "1.2.1"
     val EXO_PLAYER = "2.12.0"
     val GSON = "2.8.5"
-    val KOIN = "2.2.0-rc-1"
-    val ARROW = "0.10.5"
+    val KOIN = "2.2.2"
+    val ARROW = "0.11.0"
     val DEXTER = "6.2.1"
     val LOTTIE = "3.4.2"
     val GLIDE = "4.11.0"
@@ -27,8 +26,8 @@ object Version {
 }
 
 object TestVersion {
-    val J_UNIT = "4.13"
-    val MOCKK = "1.10.0"
+    val J_UNIT = "4.13.1"
+    val MOCKK = "1.10.2"
     val ARCH_CORE = "2.1.0"
     val COROUTINES = "1.3.9"
 
@@ -84,8 +83,9 @@ object RoomDependency {
 }
 
 object GoogleDependency {
-    val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics-ktx:${Version.FIREBASE_ANALYTICS}"
-    val FIREBASE_CRASHLYTICS = "com.google.firebase:firebase-crashlytics:${Version.FIREBASE_CRASHLYTICS}"
+    val FIREBASE_BOM = "com.google.firebase:firebase-bom:${Version.FIREBASE_BOM}"
+    val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics-ktx"
+    val FIREBASE_CRASHLYTICS = "com.google.firebase:firebase-crashlytics"
     val MATERIAL = "com.google.android.material:material:${Version.MATERIAL}"
     val EXO_PLAYER_CORE = "com.google.android.exoplayer:exoplayer-core:${Version.EXO_PLAYER}"
     val EXO_PLAYER_UI = "com.google.android.exoplayer:exoplayer-ui:${Version.EXO_PLAYER}"

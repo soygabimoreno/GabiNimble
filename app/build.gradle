@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
@@ -55,10 +54,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
+
+    buildFeatures.viewBinding = true
 
     testOptions {
         animationsDisabled true
@@ -88,6 +88,7 @@ dependencies {
     implementation AndroidDependency.BROWSER
     implementation AndroidDependency.SWIPE_REFRESH_LAYOUT
 
+    implementation platform(GoogleDependency.FIREBASE_BOM)
     implementation GoogleDependency.FIREBASE_ANALYTICS
     implementation GoogleDependency.FIREBASE_CRASHLYTICS
     implementation GoogleDependency.MATERIAL

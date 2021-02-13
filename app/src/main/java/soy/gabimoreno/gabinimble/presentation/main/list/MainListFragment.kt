@@ -1,17 +1,17 @@
 package soy.gabimoreno.gabinimble.presentation.main.list
 
 import android.net.Uri
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.viewpager2.widget.ViewPager2
-import kotlinx.android.synthetic.main.fragment_main_list.*
-import kotlinx.android.synthetic.main.layout_songs_bottom.*
-import kotlinx.android.synthetic.main.layout_songs_top.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import soy.gabimoreno.gabinimble.R
 import soy.gabimoreno.gabinimble.coredomain.Category
 import soy.gabimoreno.gabinimble.coredomain.Song
+import soy.gabimoreno.gabinimble.databinding.FragmentMainListBinding
 import soy.gabimoreno.gabinimble.domain.OffsetToAlphaCalculator
 import soy.gabimoreno.gabinimble.libbase.fragment.BaseFragment
 import soy.gabimoreno.gabinimble.libbase.recyclerview.createListAdapter
@@ -22,10 +22,12 @@ import soy.gabimoreno.gabinimble.presentation.main.list.viewholder.SongsBottomVi
 import soy.gabimoreno.gabinimble.presentation.main.list.viewholder.SongsTopViewHolder
 
 class MainListFragment : BaseFragment<
-        MainListViewModel.ViewState,
-        MainListViewModel.ViewEvents,
-        MainListViewModel
-        >(), OffsetToAlphaCalculator {
+    FragmentMainListBinding,
+    MainListViewModel.ViewState,
+    MainListViewModel.ViewEvents,
+    MainListViewModel
+    >(),
+    OffsetToAlphaCalculator {
 
     companion object {
         fun newInstance(
@@ -37,7 +39,14 @@ class MainListFragment : BaseFragment<
 
     private lateinit var navigateToSongDetail: (filename: String, song: Song) -> Unit
 
-    override val layoutResId = R.layout.fragment_main_list
+    override val viewBinding: (LayoutInflater, ViewGroup?) -> FragmentMainListBinding = { layoutInflater, viewGroup ->
+        FragmentMainListBinding.inflate(
+            layoutInflater,
+            viewGroup,
+            false
+        )
+    }
+
     override val viewModel: MainListViewModel by viewModel()
 
     private val featuredListAdapter: ListAdapter<Song, SongsTopViewHolder> by lazy {
@@ -48,7 +57,10 @@ class MainListFragment : BaseFragment<
             compareItemsByContent { oldItem, newItem -> oldItem == newItem }
 
             viewHolderCreation { view, _ ->
-                SongsTopViewHolder(view) { song ->
+                SongsTopViewHolder(
+                    layoutInflater = layoutInflater,
+                    itemView = view
+                ) { song ->
                     viewModel.handleSongClicked(
                         Category.Type.FEATURED.filename,
                         song
@@ -66,7 +78,10 @@ class MainListFragment : BaseFragment<
             compareItemsByContent { oldItem, newItem -> oldItem == newItem }
 
             viewHolderCreation { view, _ ->
-                SongsBottomViewHolder(view) { song ->
+                SongsBottomViewHolder(
+                    layoutInflater = layoutInflater,
+                    itemView = view
+                ) { song ->
                     viewModel.handleSongClicked(
                         Category.Type.REMEMBER.filename,
                         song
@@ -84,7 +99,10 @@ class MainListFragment : BaseFragment<
             compareItemsByContent { oldItem, newItem -> oldItem == newItem }
 
             viewHolderCreation { view, _ ->
-                SongsBottomViewHolder(view) { song ->
+                SongsBottomViewHolder(
+                    layoutInflater = layoutInflater,
+                    itemView = view
+                ) { song ->
                     viewModel.handleSongClicked(
                         Category.Type.MUSICA_DIVERTIDA.filename,
                         song
@@ -103,13 +121,13 @@ class MainListFragment : BaseFragment<
     }
 
     private fun initSwipeRefreshLayout() {
-        srl.setOnRefreshListener {
+        binding.srl.setOnRefreshListener {
             viewModel.handleCleanDbAndLoadContentAgain()
         }
     }
 
     private fun initFabs() {
-        fabWeb.setOnClickListener {
+        binding.clSongsTop.fabWeb.setOnClickListener {
             viewModel.handleFabWebClicked()
         }
 //        fabSearch.setOnClickListener {
@@ -118,55 +136,65 @@ class MainListFragment : BaseFragment<
     }
 
     private fun initPurchasedMain() {
-        vpSongsTop.adapter = featuredListAdapter
-        vpSongsTop.registerOnPageChangeCallback(
-            object : ViewPager2.OnPageChangeCallback() {
-                override fun onPageSelected(position: Int) {
-                    setFeaturedSongTitle(position)
-                }
-
-                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                    tvNameTop.alpha = positionOffset.offsetToAlpha()
-                    if (positionOffset > 0.5) {
-                        setFeaturedSongTitle(position + 1)
-                    } else {
+        with(binding.clSongsTop) {
+            vpSongsTop.adapter = featuredListAdapter
+            vpSongsTop.registerOnPageChangeCallback(
+                object : ViewPager2.OnPageChangeCallback() {
+                    override fun onPageSelected(position: Int) {
                         setFeaturedSongTitle(position)
                     }
-                }
-            })
-        btnListenSong.setOnClickListener {
-            val position = vpSongsTop.currentItem
-            val currentPurchasedSong = featuredListAdapter.currentList[position]
-            viewModel.handleSongClicked(
-                Category.Type.FEATURED.filename,
-                currentPurchasedSong
-            )
+
+                    override fun onPageScrolled(
+                        position: Int,
+                        positionOffset: Float,
+                        positionOffsetPixels: Int
+                    ) {
+                        tvNameTop.alpha = positionOffset.offsetToAlpha()
+                        if (positionOffset > 0.5) {
+                            setFeaturedSongTitle(position + 1)
+                        } else {
+                            setFeaturedSongTitle(position)
+                        }
+                    }
+                })
+            btnListenSong.setOnClickListener {
+                val position = vpSongsTop.currentItem
+                val currentPurchasedSong = featuredListAdapter.currentList[position]
+                viewModel.handleSongClicked(
+                    Category.Type.FEATURED.filename,
+                    currentPurchasedSong
+                )
+            }
         }
     }
 
     private fun setFeaturedSongTitle(position: Int) {
         val currentPurchasedSong = featuredListAdapter.currentList[position]
         with(currentPurchasedSong) {
-            tvNameTop.text = name
+            binding.clSongsTop.tvNameTop.text = name
         }
     }
 
     private fun initRememberSongs() {
-        rvRememberSongs.adapter = rememberListAdapter
-        rvRememberSongs.layoutManager = LinearLayoutManager(
-            requireContext(),
-            LinearLayoutManager.HORIZONTAL,
-            false
-        )
+        with(binding.clSongsBottom) {
+            rvRememberSongs.adapter = rememberListAdapter
+            rvRememberSongs.layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+        }
     }
 
     private fun initMusicaDivertidaSongs() {
-        rvMusicaDivertidaSongs.adapter = musicaDivertidaListAdapter
-        rvMusicaDivertidaSongs.layoutManager = LinearLayoutManager(
-            requireContext(),
-            LinearLayoutManager.HORIZONTAL,
-            false
-        )
+        with(binding.clSongsBottom) {
+            rvMusicaDivertidaSongs.adapter = musicaDivertidaListAdapter
+            rvMusicaDivertidaSongs.layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+        }
     }
 
     override fun renderViewState(viewState: MainListViewModel.ViewState) {
@@ -181,23 +209,23 @@ class MainListFragment : BaseFragment<
         hideLoading()
         val featuredSongs = categories[0].songs
         featuredListAdapter.submitList(featuredSongs)
-        wdIndicator.setViewPager2(vpSongsTop)
+        binding.clSongsTop.wdIndicator.setViewPager2(binding.clSongsTop.vpSongsTop)
 
         val rememberSongs = categories[1].songs
         rememberListAdapter.submitList(rememberSongs)
-        rvRememberSongs.scrollToPosition(0)
+        binding.clSongsBottom.rvRememberSongs.scrollToPosition(0)
 
         val musicaDivertidaSongs = categories[2].songs
         musicaDivertidaListAdapter.submitList(musicaDivertidaSongs)
-        rvMusicaDivertidaSongs.scrollToPosition(0)
+        binding.clSongsBottom.rvMusicaDivertidaSongs.scrollToPosition(0)
     }
 
     private fun showLoading() {
-        srl.isRefreshing = true
+        binding.srl.isRefreshing = true
     }
 
     private fun hideLoading() {
-        srl.isRefreshing = false
+        binding.srl.isRefreshing = false
     }
 
     private fun showError() {
@@ -209,7 +237,10 @@ class MainListFragment : BaseFragment<
         when (viewEvent) {
             is MainListViewModel.ViewEvents.NavigateToWeb -> navigateToWeb(viewEvent.uriString)
             MainListViewModel.ViewEvents.SearchClicked -> toast(R.string.search_not_available)
-            is MainListViewModel.ViewEvents.NavigateToMainDetail -> navigateToSongDetail(viewEvent.filename, viewEvent.song)
+            is MainListViewModel.ViewEvents.NavigateToMainDetail -> navigateToSongDetail(
+                viewEvent.filename,
+                viewEvent.song
+            )
         }.exhaustive
     }
 
