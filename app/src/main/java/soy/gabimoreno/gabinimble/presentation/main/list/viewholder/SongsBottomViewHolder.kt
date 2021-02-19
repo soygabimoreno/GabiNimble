@@ -3,17 +3,15 @@ package soy.gabimoreno.gabinimble.presentation.main.list.viewholder
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
-import soy.gabimoreno.gabinimble.R
 import soy.gabimoreno.gabinimble.coredomain.Song
 import soy.gabimoreno.gabinimble.databinding.ItemSongBottomBinding
-import soy.gabimoreno.gabinimble.libbase.recyclerview.ListAdapterBuilder
-import soy.gabimoreno.gabinimble.libimageloader.load
+import soy.gabimoreno.gabinimble.libbase.recyclerview.BindingListAdapterBuilder
 
 class SongsBottomViewHolder(
     layoutInflater: LayoutInflater,
     itemView: View,
     private val onItemClick: (Song) -> Unit
-) : ListAdapterBuilder.ViewHolder<Song>(itemView) {
+) : BindingListAdapterBuilder.ViewHolder<Song>(itemView) {
 
     private val binding = ItemSongBottomBinding.inflate(layoutInflater)
 

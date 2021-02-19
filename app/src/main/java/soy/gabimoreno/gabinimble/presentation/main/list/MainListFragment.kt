@@ -12,9 +12,10 @@ import soy.gabimoreno.gabinimble.R
 import soy.gabimoreno.gabinimble.coredomain.Category
 import soy.gabimoreno.gabinimble.coredomain.Song
 import soy.gabimoreno.gabinimble.databinding.FragmentMainListBinding
+import soy.gabimoreno.gabinimble.databinding.ItemSongTopBinding
 import soy.gabimoreno.gabinimble.domain.OffsetToAlphaCalculator
 import soy.gabimoreno.gabinimble.libbase.fragment.BaseFragment
-import soy.gabimoreno.gabinimble.libbase.recyclerview.createListAdapter
+import soy.gabimoreno.gabinimble.libbase.recyclerview.createBindingListAdapter
 import soy.gabimoreno.gabinimble.libframework.extension.debugToast
 import soy.gabimoreno.gabinimble.libframework.extension.exhaustive
 import soy.gabimoreno.gabinimble.libframework.extension.toast
@@ -50,16 +51,21 @@ class MainListFragment : BaseFragment<
     override val viewModel: MainListViewModel by viewModel()
 
     private val featuredListAdapter: ListAdapter<Song, SongsTopViewHolder> by lazy {
-        createListAdapter {
-            layout { R.layout.item_song_top }
+        createBindingListAdapter {
+            holderViewBinding { layoutInflater, viewGroup ->
+                ItemSongTopBinding.inflate(
+                    layoutInflater,
+                    viewGroup,
+                    false
+                )
+            }
 
             compareItemsByReference { oldItem, newItem -> oldItem.id == newItem.id }
             compareItemsByContent { oldItem, newItem -> oldItem == newItem }
 
-            viewHolderCreation { view, _ ->
+            viewHolderCreation { binding, _ ->
                 SongsTopViewHolder(
-                    layoutInflater = layoutInflater,
-                    itemView = view
+                    binding = binding
                 ) { song ->
                     viewModel.handleSongClicked(
                         Category.Type.FEATURED.filename,
@@ -71,7 +77,7 @@ class MainListFragment : BaseFragment<
     }
 
     private val rememberListAdapter: ListAdapter<Song, SongsBottomViewHolder> by lazy {
-        createListAdapter {
+        createBindingListAdapter {
             layout { R.layout.item_song_bottom }
 
             compareItemsByReference { oldItem, newItem -> oldItem.id == newItem.id }
@@ -92,7 +98,7 @@ class MainListFragment : BaseFragment<
     }
 
     private val musicaDivertidaListAdapter: ListAdapter<Song, SongsBottomViewHolder> by lazy {
-        createListAdapter {
+        createBindingListAdapter {
             layout { R.layout.item_song_bottom }
 
             compareItemsByReference { oldItem, newItem -> oldItem.id == newItem.id }
